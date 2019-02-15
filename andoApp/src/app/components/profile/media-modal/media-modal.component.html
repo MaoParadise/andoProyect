@@ -14,11 +14,19 @@
             </div>
         </div>
         
-        <div class="modal-body" *ngFor="let frame of this.mediaS.dataEmbed; let num=index">
-          <div [innerHtml]="onSafeHtml(frame.EMBEDFRAME)" class="embed embed-responsive embed-responsive-16by9">
-              <button type="button" class="btn btn-primary" > {{num}} </button>
+        <div class="modal-body">
+          <div *ngFor="let frame of this.mediaS.dataEmbed; let num=index">
+            <div *ngIf="frameActive == num" >
+              <div [innerHtml]="onSafeHtml(frame.EMBEDFRAME)" class="embed embed-responsive embed-responsive-16by9">   
+              </div>
+            </div>
           </div>
         </div> 
+        <div class="modal-body row d-flex justify-content-center ">
+          <div class="align-items-center" *ngFor="let frame of this.mediaS.dataEmbed; let num=index">
+              <button class="btn btn-warning btn-frame" (click)="changeFrame(num)">{{num+1}}</button>
+          </div>   
+        </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary">Guardar</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

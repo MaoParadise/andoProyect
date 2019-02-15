@@ -15,6 +15,7 @@ export class MediaModalComponent implements OnInit {
     numberEpisode: 0
   }
   frameEmbed: SafeHtml;
+  frameActive: number =0;
 
   constructor(
     private mediaS : MediaService,
@@ -37,6 +38,10 @@ export class MediaModalComponent implements OnInit {
 
   onSafeHtml(html: string){
     return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
+  changeFrame(numberFrame: number){
+    this.frameActive = numberFrame;
   }
 
   
