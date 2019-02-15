@@ -1,0 +1,29 @@
+.row-content{
+    background: #000000;
+    padding: 0;
+}
+
+.carousel-item{
+    padding: 50px;
+}
+
+.img{
+    height: 150px;
+    width: 380px;
+}
+
+app-image-scale{
+    cursor: pointer;
+}
+
+h4{
+    margin-top: 15px;
+    text-align: left;
+    margin-left: 60px;
+    color: #919aa1 !important;
+}
+
+h4:hover{
+    color: #cbcdcf !important;
+    transition: 0.3;
+}

@@ -1,0 +1,169 @@
+<div class="container-fluid">
+ <!-- container of the medias that the user uploaed -->
+ <div class="row">
+   <div class="col-sm-12">
+     <br>
+      <div class="title"> Videos  
+      <button (click)="showMediaForm()" class="btn btn-warning btn-upload"> subir <i class="fas fa-cloud-upload-alt"></i> </button> 
+      </div> 
+      <hr>
+   </div>
+   <div class="col-sm-9">
+      <div class="row library">
+        <div *ngFor="let library of dataLibrary | paginate: { itemsPerPage: 9, currentPage: actualPage }; let i=index" class="col-sm-4">
+          <div class="cardHover">
+              <div class="icons">
+                  <i class="fas fa-cogs" title="editar información"></i> | <i  data-toggle="modal" data-target="#modalEMP" (click)="onPreMedia(dataLibrary, i)" class="fas fa-edit" title="editar video"></i>
+              </div>
+              <div class="card">
+                  <img class="card-img-top" src="{{library.MINIATURE}}" alt="Card image cap">
+                <div class="card-body">
+                  <div class="card-text">
+                    {{ library.TITLE }}
+                    <div *ngIf="library.IDTYPE == 1">
+                        Episodio : {{ library.NUMBEREPISODE }}/{{ library.TOTALEPISODES }}
+                    </div>
+                    <div *ngIf="library.IDTYPE == 2">
+                        Película
+                    </div>
+                    <div *ngIf="library.IDTYPE == 3">
+                        Ova
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+ 
+          
+        </div>  
+        <div class="col-md-12 pages d-flex align-items-center">
+
+          <pagination-controls 
+          [previousLabel]="labels.previousLabel"
+          [responsive]="responsive"
+          [nextLabel]="labels.nextLabel"
+          (pageChange)="actualPage = $event">
+        </pagination-controls> 
+        </div> 
+      </div>
+   </div>
+   <div class="col-sm-3">
+     <h4>Detalle de Usuario</h4>
+     <br>
+      <table class="table user-details">
+          <tr>
+            <th><span>Usuario: </span></th><th>{{setup.getUser(setup.getCondition())}}</th>
+          </tr>
+          <tr>
+            <th><span>Estado:</span></th><th>Activo</th>
+          </tr>
+          <tr>
+            <th><span>Videos subidos:</span></th><th>9</th>
+          </tr>
+          <tr>
+            <th><span>Puntaje: </span></th><th>190 puntos</th>
+          </tr>
+        </table>
+   </div>
+ </div>
+
+
+ <div  class="row backgraound-row">
+
+   <div class="col-sm-8 offset-sm-2 content content-upload">
+      <i (click)="hideMediaForm()" class="text-muted fas fa-times-circle"></i> 
+      <div class="title text-muted"> SUBIR VIDEO </div> 
+      <form class="uploadFrm">
+        <div class="form-group" >
+          <label for="mediaSearch"> Buscar Serie/Película/OVA </label>
+          <br>
+          <input class="form-control" type="text" [(ngModel)]="_media.TITLE" name="searchMedia" (focusout)="onLostFocus()"  (input)="onChangeSearch()" autocomplete="off">  
+          <div class="autocomplete-input">
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let media of data; let i=index">
+                  <div class="item-search" id="{{i}}" (click)="clickItemSearch($event)" > [#{{data[i].IDMEDIA}}] : {{ data[i].TITLE }}</div>
+              </li>
+            </ul>
+          </div>
+          <small id="searchError" class="form-text text-justify text-danger"> 
+            {{searchError}}
+          </small>
+        </div>
+        <div class="form-group" >
+          <label for="mediaDescription"> Descripción  </label>
+          <br>
+          <textarea class="form-control" [(ngModel)]="_media.DESCRIPTION"  name="descriptionMedia"  disabled rows="4">
+              
+          </textarea>
+          <small id="descriptionError" class="form-text text-justify text-danger"> 
+              {{descriptionError}}
+          </small>
+        </div>
+        <div class="form-group" >
+          <label for="mediaChapter"> Capitulo </label>
+          <br>
+          <input type="number" [(ngModel)]="numberEpisode" class="form-control" name="mediaChapter">
+          <small id="chapterError" class="form-text text-justify text-danger"> 
+              {{chapterError}}
+          </small>
+        </div>
+        <div class="form-group">
+          <label for="Calidad"> Calidad </label>
+          <br>
+          <div class="d-flex flex-row" *ngFor="let qual of quality">
+              <label class="btn btn-secondary">
+                <input type="radio" name="qualityRadio" value="{{qual}}" (change)="radioChangeHandler($event)"> 
+                {{ qual }}
+              </label>
+          </div>
+          <small id="qualityError" class="form-text text-justify text-danger"> 
+              {{qualityError}}
+          </small>
+        </div>
+        <div class="form-group" >
+            <label for="frameEmbed"> Frame embebido  </label>
+            <br>
+            <textarea (blur)="onBlurFrameEmbed()" [(ngModel)]="rawFrameEmbed" class="form-control rawFrameEmbed" name="rawFrameEmbed" id="" cols="30" rows="5">
+
+            </textarea>
+            <small id="embedError" class="form-text text-justify text-danger"> 
+                {{embedFrameError}}
+            </small>
+            <small id="embedMessage" class="form-text text-justify text-muted"> 
+                Recuerda que si el video no se previsualiza en la parte inferior de este formulario significa 
+                que no se ha subido bien el link embebido que se le proporciono, lo cual causara que el video 
+                no se pueda reproducir una vez subido, causando un reporte en contra de parte de los demás usuarios 
+                y la disminución de su reputación, en caso contrario y usted pueda ver el video, ignore este mensaje.
+            </small>
+        </div>
+        <div [innerHtml]="frameEmbed" class="embed embed-responsive embed-responsive-16by9">
+            
+        </div>
+        <br>
+        <div class="btn-save">
+          <button class="btn btn-danger form-control" (click)="saveUpload()"> Guardar </button>
+        </div>
+        <br>
+      </form>     
+      <div class="success-message">
+          <h3>{{ messageMedia }}</h3>
+
+          <div *ngIf="dataBind.success == true else error">
+              <i class="fas fa-check-circle"></i>
+          </div>
+          <ng-template #error>
+              <i class="error fas fa-exclamation-triangle"></i>
+          </ng-template>
+
+          <button (click)="restartLibrary()" class="btn btn-danger form-control"> CONTINUAR </button>  
+
+          <br>
+        </div> 
+   </div>
+ </div>
+ <div class="row">
+   <div class="col-md-12">
+      <app-media-modal></app-media-modal>
+   </div>
+ </div>
+</div>

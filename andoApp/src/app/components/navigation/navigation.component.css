@@ -1,0 +1,27 @@
+.nav-item{
+    
+    text-align: right;
+    margin-right: 0; 
+}
+
+.logout{
+    cursor: pointer;
+    
+}
+
+.logout{
+    color: #e62b24;
+}
+
+.profile-item{
+    color: #1a1a1a !important;
+    cursor: pointer;
+}
+
+
+
+@media only screen and (max-width: 1140px) {
+    .search{
+        width: 100%;
+    }
+}

@@ -1,0 +1,18 @@
+
+.container-fluid{
+    background: #161515;
+}
+
+.loginForm{
+    padding-top: 90px;
+}
+
+h4{
+    color: #919aa1;    
+    text-align: center;
+}
+
+.registerMessage{
+    text-align: center;
+    display: none;
+}

@@ -1,0 +1,10 @@
+.modal-title{
+    text-align: center;
+}
+
+@media (min-width: 576px){
+    .modal-dialog {
+        max-width: 60%;
+        margin: 1.75rem auto;
+    }
+}

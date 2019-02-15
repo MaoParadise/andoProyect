@@ -1,0 +1,30 @@
+.content{
+    background: #161515;
+    
+}
+
+.card{
+    padding: 50px;
+    border-radius: 5px;
+}
+
+.profile-img{
+    text-align: center;
+}
+
+.space{
+    height: 250px;
+}
+
+
+.recent-activity >h4{
+    margin-top: 20px; 
+    text-align: center;
+    color: #919aa1 !important;
+}
+
+.recent-activity .activities{
+    border-radius: 10px; 
+    background: #fff;
+    color: #2d2e30 !important;
+}

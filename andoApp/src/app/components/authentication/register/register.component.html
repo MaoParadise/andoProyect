@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row text-center justify-content-md-center">
+        <div class="col-sm-12 registerMessage col-md-6 col-lg-6">
+            <br>
+            <h4>{{ message }}</h4>
+            <div *ngIf="data.success == true else error">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <ng-template #error>
+                <i class="error fas fa-exclamation-triangle"></i>
+            </ng-template>
+            <br>
+            <a href="/">
+                <button class="btn btn-danger"> CONTINUAR </button>
+            </a>
+            
+            <br>
+        </div>
+    </div>
+    <div class="row registerUser justify-content-md-center">
+        <div class="col-sm-12 col-md-6 col-lg-6">
+            <br>
+            <form>
+            <div class="form-group">
+                <label for="Email">Email*</label>
+                <input type="email" [(ngModel)]="user.EMAIL" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Ingrese su email">
+                <small id="emailHelp" class="form-text text-muted">Recuerde que recibirá un email para confirmar el registro una vez haya terminado.</small>
+                <small id="emailError" class="form-text text-danger"> {{ emailError }}</small>
+            </div>
+            <div class="form-group">
+                <label for="Usuario">Usuario*</label>
+                <input type="text" [(ngModel)]="user.USER"  class="form-control" name="user" aria-describedby="emailHelp" pattern="[A-Za-z0-9_-]{1,15}"  placeholder="Ingrese un Usuario">
+                <small id="userError" class="form-text text-danger">{{ userError }}</small>
+            </div>
+            <div class="form-group">
+                <label for="InputPassword1">Contraseña*</label>
+                <input type="password" [(ngModel)]="user.PASSWORD"  class="form-control" name="password" placeholder="Contraseña">
+                <small id="passwordError" class="form-text text-danger">{{passwordError}}</small>
+            </div>
+            <div class="form-group">
+                <label for="InputPassword2">Vuelva a ingresar la Contraseña*</label>
+                <input type="password" [(ngModel)]="passwordValue" class="form-control" name="repassword" placeholder="Contraseña">
+                <small id="passwordError2" class="form-text text-danger">{{passwordError2}}</small>
+            </div>
+            <div class="form-group">
+                <label for="Usuario">Nombre Publico</label>
+                <input type="text" [(ngModel)]="user.PUBLICNAME"  class="form-control" name="publicName" aria-describedby="emailHelp" placeholder="Ingrese un Usuario">
+                <small id="emailHelp" class="form-text text-muted">
+                        Este es el nombre que verán los demás usuarios, el cual no necesariamente es único, 
+                        si deja este espacio en blanco este se remplazara automáticamente con su nombre de usuario
+                </small>
+            </div>
+            
+            <button class="form-control btn btn-danger" (click)="saveUser()"> Guardar </button>
+            
+            </form>
+            <br>
+        </div>
+      
+    </div>
+</div>

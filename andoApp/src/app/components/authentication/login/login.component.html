@@ -1,0 +1,41 @@
+<div class="container-fluid">
+<div class="row text-center justify-content-md-center">
+        <div class="col-sm-12 registerMessage col-md-6 col-lg-6">
+            <br>
+            <h4>{{ message }}</h4>
+            <div *ngIf="data.success == true else error">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <ng-template #error>
+                <i class="error fas fa-exclamation-triangle"></i>
+            </ng-template>
+            <br>
+            <a routerLink="/">
+                <button class="btn btn-danger"> CONTINUAR </button>
+            </a>
+            
+            <br>
+        </div>
+  </div>
+  <div class="row loginForm text-center ">
+    <div class="col col-sm-4 offset-sm-4">
+        <br>
+        <form>
+            <br>
+            <div class="form-group" >
+                <label for="Email">Usuario</label>
+                <input type="text" [(ngModel)]="user.EMAIL" class="form-control" id="username" name="username" aria-describedby="emailHelp" placeholder="Ingrese su email">
+                <small id="emailError" class="form-text text-danger"> {{ emailError }}</small>
+            </div>
+            <div class="form-group">
+                <label for="InputPassword1">Contraseña*</label>
+                <input type="password" [(ngModel)]="user.PASSWORD"  class="form-control" id="password"  name="password" placeholder="Contraseña">
+                <small id="passwordError" class="form-text text-danger">{{passwordError}}</small>
+            </div>
+            <a href=""><small id="emailError" class="form-text text-muted"> ¿Has perdido u olvidado tus datos? </small></a>
+            <br><br>
+            <button class="form-control btn btn-danger" (click)="validateUser()"> Ingresar </button>
+        </form>
+    </div>
+  </div>
+</div>

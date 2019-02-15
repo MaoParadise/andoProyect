@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+.text-danger {
+    color: #e71f1f !important;
+  }
+
+
+html,
+body,
+.container-fluid {
+  height: 100%;
+}
+
+.content{
+  background: #161515;
+  
+}
+
+.fa-check-circle{
+  color: #4BBF73;
+  font-size: 25px;
+}
+
+.fa-exclamation-triangle{
+  color: #e71d16;
+  font-size: 25px;
+}
+
+
+.pages{
+  width: 100%;
+}
+
+pagination-controls{
+  width: 100%;
+}
+
+.ngx-pagination .current {
+  padding: 0.1875rem 0.625rem;
+  background: #e89221 !important;
+  color: #fefefe;
+  cursor: default;
+}
+
+
+.ngx-pagination {
+  margin-left: 0! important;
+  width: 100% !important;
+  text-align: center;
+  margin-bottom: 1rem !important;
+}

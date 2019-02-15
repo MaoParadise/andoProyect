@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-md-4 offset-md-2">   
+            <br>    
+            <div class="card card-body content">
+            <form>
+                <div class="form-group">
+                    <label for="PublicName">Nombre Público</label>
+                        <input type="text" [(ngModel)]="user.PUBLICNAME" name="PUBLICNAME"  class="form-control">
+                    </div>
+                <div class="form-group">
+                    <label for="ProfileImage">Imagen de perfil</label>
+                        <input type="text" [(ngModel)]="user.URLPROFILEPICTURE" name="URLPROFILEPICTURE"   class="form-control">
+                    </div>
+                <button (click)="updateUser()" class="btn btn-block btn-danger">
+                    Guardar
+                </button>
+            </form>
+                
+            </div>
+
+        </div>
+        <div class="col-md-4 ">
+            <br>
+            
+            <div class="card text-center align-items-center">
+                <img class="text-center" width="180px" height="180px" [src]="user.URLPROFILEPICTURE == 'no-profile' ? '/assets/default/profile/no-image.png' : user.URLPROFILEPICTURE" alt="">
+                <h4> {{user.PUBLICNAME}} </h4>
+                <div *ngIf="user.ACTIVEPROFILE">
+                    <p> Estado de perfil: ACTIVADO </p>
+                </div>
+                <div *ngIf="user.ACTIVEPROFILE == 0">
+                    <p> Estado de perfil: NO-ACTIVADO </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row content">
+        <div class="col-md-8 offset-md-2 recent-activity">  
+            <br>
+            <h4> ACTIVIDAD RECIENTE </h4>
+            <div class="activities">
+                <br>
+                <ul>
+                    <li> Haz calificado a [título del video], fecha: [dd-mm-yyyy] </li>
+                    <li> Alguien te ha dado puntos a tu perfil, fecha: [dd-mm-yyyy] </li>
+                    <li> Haz modificado información de tu perfil], fecha: [dd-mm-yyyy] </li>
+                    <li> Haz subido el capítulo [n°] de [título del video], fecha: [dd-mm-yyyy] </li>
+                    <li> Alguien ha dejado un comentario en tu video, [título del video] [n°], fecha: [dd-mm-yyyy]</li>
+                    <li> Haz modificado información de tu perfil], fecha: [dd-mm-yyyy] </li>
+                </ul>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="row content">
+        <div class="col-md-12 space">
+           
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+.container-fluid{
+    background: #161515;
+}
+
+h4{
+    color: #919aa1;    
+    text-align: center;
+}
+
+.fa-check-circle{
+    color: #4BBF73;
+    font-size: 25px;
+}
+
+.fa-exclamation-triangle{
+    color: #e71d16;
+    font-size: 25px;
+}
+
+body{
+    background: #161515;
+}
+
+.registerMessage{
+    text-align: center;
+    display: none;
+}
