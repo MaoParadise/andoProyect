@@ -17,6 +17,10 @@ export class MediaService {
   public dataEmbed: any;
   public addEmbed: boolean;
   public index: number = 0;
+  public frameActive: number = 0;
+  public updateEmbed: boolean = false;
+
+
 
   constructor(private http: HttpClient, private setup: SetupService) { }
 

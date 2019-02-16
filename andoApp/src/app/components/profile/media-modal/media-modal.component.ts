@@ -14,9 +14,13 @@ export class MediaModalComponent implements OnInit {
     email: '',
     numberEpisode: 0
   }
+  body:any ={
+    frame: '',
+    quality: ''
+  }
+
   rawFrameEmbed: string;
   frameEmbed: SafeHtml;
-  frameActive: number =0;
   selectedQuality = '';
 
   constructor(
@@ -46,10 +50,19 @@ export class MediaModalComponent implements OnInit {
     this.header.email = email;
     this.header.numberEpisode = numberEpisode;
   }
+  setBody(frame: string, quality: string){
+    this.body.frame = frame;
+    this.body.quality = quality;
+  }
 
   showModalFrame(){
     this.mediaS.addEmbed = true;
     this.rawFrameEmbed = '';
+  }
+
+  showModalFrameUpdated(){
+    console.log(this.header);
+    console.log(this.body);
   }
 
   onSafeHtml(html: string){
@@ -57,7 +70,7 @@ export class MediaModalComponent implements OnInit {
   }
 
   changeFrame(numberFrame: number){
-    this.frameActive = numberFrame;
+    this.mediaS.frameActive = numberFrame;
     this.mediaS.addEmbed = false;
   }
 

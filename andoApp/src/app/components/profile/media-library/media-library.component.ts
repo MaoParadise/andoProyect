@@ -335,6 +335,8 @@ export class MediaLibraryComponent implements OnInit {
       res => {
         this.mediaS.dataEmbed = res;
         this.mediaS.addEmbed = false;
+        this.mediaS.frameActive = 0;
+        this.mediaS.updateEmbed = true;
         console.log(this.mediaS.dataEmbed)
       },
       err => console.error(err)
