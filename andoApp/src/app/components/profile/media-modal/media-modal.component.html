@@ -13,7 +13,26 @@
                 </div>
             </div>
         </div>
-        
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-warning btn-plus" (click)="showModalFrame()"> Agregar </button>
+          </div>
+        </div>
+        <div *ngIf="this.mediaS.addEmbed" class="frameFrm modal-body row">
+          <div  class="col-md-12">
+              <label for="newModalFrame"> Codigo de insercion  </label>
+              <textarea [(ngModel)]="rawFrameEmbed" class="form-control" name="newModalFrame"  cols="30" rows="5">
+
+              </textarea>
+          </div>
+          <div class="btn newModelRadio col-md-12">
+              <input type="radio" name="qualityRadio" value="1080p" (change)="radioChangeHandler($event)">  1080p |
+              <input type="radio" name="qualityRadio" value="720p" (change)="radioChangeHandler($event)">  720p |
+              <input type="radio" name="qualityRadio" value="480p" (change)="radioChangeHandler($event)">  480p
+          </div>
+          <div class="col-md-6"><button class="form-control btn btn-warning" (click)="saveUploadFrame()"> Agregar </button></div>
+          <div class="col-md-6"><button class="form-control btn btn-warning" (click)="closeNewFrame()"> Cancelar </button></div>
+        </div>
         <div class="modal-body">
           <div *ngFor="let frame of this.mediaS.dataEmbed; let num=index">
             <div *ngIf="frameActive == num" >
@@ -24,9 +43,10 @@
         </div> 
         <div class="modal-body row d-flex justify-content-center ">
           <div class="align-items-center" *ngFor="let frame of this.mediaS.dataEmbed; let num=index">
-              <button class="btn btn-warning btn-frame" (click)="changeFrame(num)">{{num+1}}</button>
+              <button class="btn btn-warning btn-frame" (click)="changeFrame(num)">[{{num+1}}] {{frame.QUALITY}}</button>
           </div>   
         </div>
+
         <div class="modal-footer">
             <button type="button" class="btn btn-primary">Guardar</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

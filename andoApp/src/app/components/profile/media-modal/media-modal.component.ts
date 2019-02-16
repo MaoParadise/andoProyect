@@ -14,8 +14,10 @@ export class MediaModalComponent implements OnInit {
     email: '',
     numberEpisode: 0
   }
+  rawFrameEmbed: string;
   frameEmbed: SafeHtml;
   frameActive: number =0;
+  selectedQuality = '';
 
   constructor(
     private mediaS : MediaService,
@@ -26,14 +28,28 @@ export class MediaModalComponent implements OnInit {
     
   }
 
+  saveUploadFrame(){
+    this.mediaS.saveUploadEmbed(this.header.id, this.header.email, this.header.numberEpisode, this.rawFrameEmbed, this.selectedQuality)
+      .subscribe(
+        res => {
+          this.onPreMedia(this.header.id, this.header.email, this.header.numberEpisode);
+          this.mediaS.addEmbed = false;
+          this.rawFrameEmbed = '';
+        },
+        err => console.error(err)
+      );
+  }
+
+
   setHeader(id:number,email: string, numberEpisode: number){
     this.header.id = id;
     this.header.email = email;
     this.header.numberEpisode = numberEpisode;
   }
 
-  getFrames(){
-    
+  showModalFrame(){
+    this.mediaS.addEmbed = true;
+    this.rawFrameEmbed = '';
   }
 
   onSafeHtml(html: string){
@@ -42,8 +58,28 @@ export class MediaModalComponent implements OnInit {
 
   changeFrame(numberFrame: number){
     this.frameActive = numberFrame;
+    this.mediaS.addEmbed = false;
   }
 
+  closeNewFrame(){
+    this.mediaS.addEmbed = false;
+    this.rawFrameEmbed = '';
+  }
   
+  radioChangeHandler(event: any){
+    this.selectedQuality = event.target.value;
+  }
+
+  onPreMedia(id:number,email: string, numberEpisode: number){
+    this.mediaS.getEmbedsFrames(
+      id,
+      email,
+      numberEpisode+'').subscribe(
+      res => {
+        this.mediaS.dataEmbed = res;
+      },
+      err => console.error(err)
+    );
+  }
 
 }

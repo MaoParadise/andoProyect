@@ -334,6 +334,7 @@ export class MediaLibraryComponent implements OnInit {
       this.mediaS.dataLibrary[this.mediaS.index].NUMBEREPISODE+'').subscribe(
       res => {
         this.mediaS.dataEmbed = res;
+        this.mediaS.addEmbed = false;
         console.log(this.mediaS.dataEmbed)
       },
       err => console.error(err)

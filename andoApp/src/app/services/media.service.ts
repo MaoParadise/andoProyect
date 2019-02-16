@@ -15,6 +15,7 @@ export class MediaService {
 
   public dataLibrary : any;
   public dataEmbed: any;
+  public addEmbed: boolean;
   public index: number = 0;
 
   constructor(private http: HttpClient, private setup: SetupService) { }
@@ -32,6 +33,16 @@ export class MediaService {
       email : mail,
       media : media,
       episode : numberEpisode,
+      embedFrame : embedFrame,
+      quality: quality
+    });
+  }
+
+  saveUploadEmbed(id: Media, mail:string, numberEpisode: number, embedFrame: string, quality: string){
+    return this.http.post(`${this.API_URI}/media/uploadEmbed`, {
+      id: id,
+      email : mail,
+      numberEpisode : numberEpisode,
       embedFrame : embedFrame,
       quality: quality
     });

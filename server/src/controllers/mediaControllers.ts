@@ -64,6 +64,32 @@ class MediaController{
         
     }
 
+    public async createFrame(req: Request ,res: Response): Promise<void>{
+        const id = req.body.id;
+        const email = req.body.email;
+        const numberEpisode = req.body.numberEpisode;
+        const embedFrame = req.body.embedFrame;
+        const quality = req.body.quality;
+
+        await pool.query(`INSERT INTO embedframe
+                        VALUES (NULL, '${id}', '${email}', '${numberEpisode}',
+                        '${embedFrame}', NULL, '${quality}', '1')`,(error: Error)=>{
+            if(error){
+                res.json(
+                    {
+                        message: 'The embed frame was not created becausa an unexpected error, check if the primary key is not duplicated',
+                        success: false
+                    }); 
+            }else{
+                res.json(
+                {
+                    message: 'the Embed frame was created',
+                    success: true
+                }); 
+            }
+        });    
+    }
+
 
     public async getMediaLibrary(req: Request, res: Response): Promise<any> {
         const {email} = req.params;
@@ -91,6 +117,8 @@ class MediaController{
         res.json(media);
         
     }
+
+
 
 }
 

@@ -17,6 +17,8 @@ class MediaRoutes{
 
         this.router.post('/upload/', verifyToken, mediaController.createUpload);
 
+        this.router.post('/uploadEmbed/', verifyToken, mediaController.createFrame);
+
         this.router.get('/library/:email', mediaController.getMediaLibrary);
 
         this.router.post('/embed/', verifyToken, mediaController.getEmbedFrames);

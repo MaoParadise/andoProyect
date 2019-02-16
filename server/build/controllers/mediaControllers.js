@@ -65,6 +65,31 @@ class MediaController {
             });
         });
     }
+    createFrame(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = req.body.id;
+            const email = req.body.email;
+            const numberEpisode = req.body.numberEpisode;
+            const embedFrame = req.body.embedFrame;
+            const quality = req.body.quality;
+            yield database_1.default.query(`INSERT INTO embedframe
+                        VALUES (NULL, '${id}', '${email}', '${numberEpisode}',
+                        '${embedFrame}', NULL, '${quality}', '1')`, (error) => {
+                if (error) {
+                    res.json({
+                        message: 'The embed frame was not created becausa an unexpected error, check if the primary key is not duplicated',
+                        success: false
+                    });
+                }
+                else {
+                    res.json({
+                        message: 'the Embed frame was created',
+                        success: true
+                    });
+                }
+            });
+        });
+    }
     getMediaLibrary(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { email } = req.params;
