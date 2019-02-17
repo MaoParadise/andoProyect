@@ -242,7 +242,6 @@ export class MediaLibraryComponent implements OnInit {
       .subscribe(
         res => {
           this.dataLibrary = res;
-          console.log(this.dataLibrary);
         },
         err => console.error(err)
       );
@@ -327,7 +326,6 @@ export class MediaLibraryComponent implements OnInit {
   onPreMedia(dataLibrary: any, index: number){
     this.mediaS.dataLibrary = dataLibrary;
     this.mediaS.index = index;
-    console.log(this.mediaS.dataLibrary[this.mediaS.index]);
     this.mediaS.getEmbedsFrames(
       this.mediaS.dataLibrary[this.mediaS.index].IDMEDIA,
       this.mediaS.dataLibrary[this.mediaS.index].EMAIL,
@@ -337,7 +335,6 @@ export class MediaLibraryComponent implements OnInit {
         this.mediaS.addEmbed = false;
         this.mediaS.frameActive = 0;
         this.mediaS.updateEmbed = true;
-        console.log(this.mediaS.dataEmbed)
       },
       err => console.error(err)
     );

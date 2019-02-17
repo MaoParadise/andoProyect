@@ -64,6 +64,14 @@ export class MediaService {
     });
   }
 
+  updatedFrames(id: number, embedFrame: string, quality: string){
+    return this.http.put(`${this.API_URI}/media/updateEmbed/`, {
+      id : id,
+      embedFrame : embedFrame,
+      quality : quality,
+    });
+  }
+
 
 
 }

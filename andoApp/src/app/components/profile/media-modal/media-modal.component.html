@@ -26,12 +26,16 @@
 
               </textarea>
           </div>
-          <div class="btn newModelRadio col-md-12">
-              <input type="radio" name="qualityRadio" value="1080p" (change)="radioChangeHandler($event)">  1080p |
-              <input type="radio" name="qualityRadio" value="720p" (change)="radioChangeHandler($event)">  720p |
-              <input type="radio" name="qualityRadio" value="480p" (change)="radioChangeHandler($event)">  480p
+          <div class="btn newModelRadio col-sm-4" *ngFor="let qual of quality; let idx = index">
+              <input type="radio" name="qualityRadio" value="{{qual}}" [checked]="setQualityNumber(qual)" (change)="radioChangeHandler($event)">  {{qual}} 
           </div>
-          <div class="col-md-6"><button class="form-control btn btn-warning" (click)="saveUploadFrame()"> Agregar </button></div>
+          <div class="col-md-12"><br></div>
+          <div *ngIf="updateFrame == false" class="col-md-6">
+            <button class="form-control btn btn-warning" (click)="saveUploadFrame()"> Agregar </button>
+          </div>
+          <div *ngIf="updateFrame == true" class="col-md-6">
+            <button class="form-control btn btn-warning" (click)="updateUploadFrame()"> Modificar </button>
+          </div>
           <div class="col-md-6"><button class="form-control btn btn-warning" (click)="closeNewFrame()"> Cancelar </button></div>
         </div>
         <div class="modal-body">

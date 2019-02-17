@@ -19,9 +19,15 @@ export class MediaModalComponent implements OnInit {
     frame: '',
     quality: ''
   }
-
+  quality: any = [
+    '1080p',
+    '720p',
+    '480p'
+  ];
+  qualityNumber: number = 0;
   rawFrameEmbed: string;
   frameEmbed: SafeHtml;
+  updateFrame: boolean = false;
   selectedQuality = '';
 
   constructor(
@@ -45,6 +51,23 @@ export class MediaModalComponent implements OnInit {
       );
   }
 
+  updateUploadFrame(){
+    if(this.selectedQuality != ''){
+      this.body.quality = this.selectedQuality;
+      }else{
+    }
+    this.mediaS.updatedFrames(this.body.id, this.rawFrameEmbed, this.body.quality).subscribe(
+      res => {
+          this.onPreMedia(this.header.id, this.header.email, this.header.numberEpisode);
+          this.mediaS.addEmbed = false;
+          this.rawFrameEmbed = '';
+       },
+       err => console.error(err)
+     );
+
+
+  }
+
 
   setHeader(id:number,email: string, numberEpisode: number){
     this.header.id = id;
@@ -56,16 +79,29 @@ export class MediaModalComponent implements OnInit {
     this.body.frame = frame;
     this.body.quality = quality;
   }
-
+  
+  setQualityNumber(quality){
+    if(quality == '1080p' && this.body.quality == '1080p'){
+      return true;
+    }else if(quality == '720p' && this.body.quality == '720p'){
+      return true;
+    }else if(quality == '480p' && this.body.quality == '480p'){
+      return true;
+    }
+    return false;
+  }
 
   showModalFrame(){
     this.mediaS.addEmbed = true;
     this.rawFrameEmbed = '';
+    this.updateFrame = false;
   }
 
   showModalFrameUpdated(){
     this.mediaS.addEmbed = true;
     this.rawFrameEmbed = this.body.frame;
+    this.updateFrame = true;
+    this.selectedQuality = '';
   }
 
   onSafeHtml(html: string){
@@ -75,11 +111,13 @@ export class MediaModalComponent implements OnInit {
   changeFrame(numberFrame: number){
     this.mediaS.frameActive = numberFrame;
     this.mediaS.addEmbed = false;
+    this.updateFrame = false;
   }
 
   closeNewFrame(){
     this.mediaS.addEmbed = false;
     this.rawFrameEmbed = '';
+    this.updateFrame = false;
   }
   
   radioChangeHandler(event: any){

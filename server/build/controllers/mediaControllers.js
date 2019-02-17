@@ -90,6 +90,28 @@ class MediaController {
             });
         });
     }
+    updateFrame(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = req.body.id;
+            const embedFrame = req.body.embedFrame;
+            const quality = req.body.quality;
+            yield database_1.default.query(`UPDATE embedframe SET EMBEDFRAME = '${embedFrame}', QUALITY = '${quality}' WHERE embedframe.IDFRAME = ${id}`, (error) => {
+                if (error) {
+                    res.json({
+                        message: 'The embed frame was not updated becausa an unexpected error',
+                        success: false
+                    });
+                }
+                else {
+                    res.json({
+                        message: 'the Embed frame was updated',
+                        test: `UPDATE embedframe SET EMBEDFRAME = '${embedFrame}', QUALITY = '${quality}' WHERE embedframe.IDFRAME = ${id}`,
+                        success: true
+                    });
+                }
+            });
+        });
+    }
     getMediaLibrary(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { email } = req.params;

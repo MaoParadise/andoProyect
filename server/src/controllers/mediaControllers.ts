@@ -90,6 +90,27 @@ class MediaController{
         });    
     }
 
+    public async updateFrame(req: Request ,res: Response): Promise<any>{
+        const id = req.body.id;
+        const embedFrame = req.body.embedFrame;
+        const quality = req.body.quality;
+        await pool.query(`UPDATE embedframe SET EMBEDFRAME = '${embedFrame}', QUALITY = '${quality}' WHERE embedframe.IDFRAME = ${id}`,(error: Error)=>{
+            if(error){
+                res.json(
+                    {
+                        message: 'The embed frame was not updated becausa an unexpected error',
+                        success: false
+                    }); 
+            }else{
+                res.json(
+                {
+                    message: 'the Embed frame was updated',
+                    test: `UPDATE embedframe SET EMBEDFRAME = '${embedFrame}', QUALITY = '${quality}' WHERE embedframe.IDFRAME = ${id}`,
+                    success: true
+                }); 
+            }
+        });    
+    }
 
     public async getMediaLibrary(req: Request, res: Response): Promise<any> {
         const {email} = req.params;

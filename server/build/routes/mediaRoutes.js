@@ -16,6 +16,7 @@ class MediaRoutes {
         this.router.post('/search/', auth_1.verifyToken, mediaControllers_1.default.getMediaLike);
         this.router.post('/upload/', auth_1.verifyToken, mediaControllers_1.default.createUpload);
         this.router.post('/uploadEmbed/', auth_1.verifyToken, mediaControllers_1.default.createFrame);
+        this.router.put('/updateEmbed/', auth_1.verifyToken, mediaControllers_1.default.updateFrame);
         this.router.get('/library/:email', mediaControllers_1.default.getMediaLibrary);
         this.router.post('/embed/', auth_1.verifyToken, mediaControllers_1.default.getEmbedFrames);
     }
