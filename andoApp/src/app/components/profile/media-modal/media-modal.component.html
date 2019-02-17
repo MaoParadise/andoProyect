@@ -39,7 +39,7 @@
             <div *ngIf="this.mediaS.frameActive == num" >
               <div [innerHtml]="onSafeHtml(frame.EMBEDFRAME)" class="embed embed-responsive embed-responsive-16by9">   
               </div>
-              {{ setBody(frame.EMBEDFRAME, frame.QUALITYL) }}
+              {{ setBody(frame.IDFRAME, frame.EMBEDFRAME, frame.QUALITY) }}
             </div>
           </div>
         </div> 

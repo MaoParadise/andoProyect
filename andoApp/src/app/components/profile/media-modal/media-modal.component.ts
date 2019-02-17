@@ -15,6 +15,7 @@ export class MediaModalComponent implements OnInit {
     numberEpisode: 0
   }
   body:any ={
+    id: 0,
     frame: '',
     quality: ''
   }
@@ -50,10 +51,12 @@ export class MediaModalComponent implements OnInit {
     this.header.email = email;
     this.header.numberEpisode = numberEpisode;
   }
-  setBody(frame: string, quality: string){
+  setBody(id:number, frame: string, quality: string){
+    this.body.id = id;
     this.body.frame = frame;
     this.body.quality = quality;
   }
+
 
   showModalFrame(){
     this.mediaS.addEmbed = true;
@@ -61,8 +64,8 @@ export class MediaModalComponent implements OnInit {
   }
 
   showModalFrameUpdated(){
-    console.log(this.header);
-    console.log(this.body);
+    this.mediaS.addEmbed = true;
+    this.rawFrameEmbed = this.body.frame;
   }
 
   onSafeHtml(html: string){
