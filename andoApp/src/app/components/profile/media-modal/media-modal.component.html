@@ -27,9 +27,20 @@
               </textarea>
           </div>
           <div class="btn newModelRadio col-sm-4" *ngFor="let qual of quality; let idx = index">
-              <input type="radio" name="qualityRadio" value="{{qual}}" [checked]="setQualityNumber(qual)" (change)="radioChangeHandler($event)">  {{qual}} 
+            <div *ngIf="updateFrame == false">
+                <input type="radio" name="qualityRadio" value="{{qual}}" (change)="radioChangeHandler($event)">  {{qual}}
+            </div>
+            <div *ngIf="updateFrame">
+                <input type="radio" name="qualityRadio" value="{{qual}}" [checked]="setQualityNumber(qual)" (change)="radioChangeHandler($event)">  {{qual}} 
+            </div>
+              
           </div>
-          <div class="col-md-12"><br></div>
+          <div class="col-md-12">
+            <br>
+            <div *ngIf="markError" class="ErrorFrame">
+                <label for="Error" class="text-danger"> Ha ocurrido un error inesperado, revisa que el código de inserción y la calidad del video no estén vacía o sin marcar. </label>
+            </div>     
+          </div>
           <div *ngIf="updateFrame == false" class="col-md-6">
             <button class="form-control btn btn-warning" (click)="saveUploadFrame()"> Agregar </button>
           </div>

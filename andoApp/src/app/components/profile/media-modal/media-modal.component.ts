@@ -29,6 +29,7 @@ export class MediaModalComponent implements OnInit {
   frameEmbed: SafeHtml;
   updateFrame: boolean = false;
   selectedQuality = '';
+  markError: boolean = false;
 
   constructor(
     private mediaS : MediaService,
@@ -39,16 +40,23 @@ export class MediaModalComponent implements OnInit {
     
   }
 
+
+
   saveUploadFrame(){
-    this.mediaS.saveUploadEmbed(this.header.id, this.header.email, this.header.numberEpisode, this.rawFrameEmbed, this.selectedQuality)
+    if(this.rawFrameEmbed == '' || this.selectedQuality == ''){
+      this.markError = true;
+    }else{
+      this.mediaS.saveUploadEmbed(this.header.id, this.header.email, this.header.numberEpisode, this.rawFrameEmbed, this.selectedQuality)
       .subscribe(
         res => {
           this.onPreMedia(this.header.id, this.header.email, this.header.numberEpisode);
           this.mediaS.addEmbed = false;
           this.rawFrameEmbed = '';
+          this.markError = false;
         },
         err => console.error(err)
       );
+    }
   }
 
   updateUploadFrame(){
@@ -95,6 +103,7 @@ export class MediaModalComponent implements OnInit {
     this.mediaS.addEmbed = true;
     this.rawFrameEmbed = '';
     this.updateFrame = false;
+    this.markError = false;
   }
 
   showModalFrameUpdated(){
@@ -102,6 +111,7 @@ export class MediaModalComponent implements OnInit {
     this.rawFrameEmbed = this.body.frame;
     this.updateFrame = true;
     this.selectedQuality = '';
+    this.markError = false;
   }
 
   onSafeHtml(html: string){
@@ -118,10 +128,13 @@ export class MediaModalComponent implements OnInit {
     this.mediaS.addEmbed = false;
     this.rawFrameEmbed = '';
     this.updateFrame = false;
+    this.markError = false;
+    this.selectedQuality = '';
   }
   
   radioChangeHandler(event: any){
     this.selectedQuality = event.target.value;
+    this.markError = false;
   }
 
   onPreMedia(id:number,email: string, numberEpisode: number){
