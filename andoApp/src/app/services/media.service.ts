@@ -72,6 +72,27 @@ export class MediaService {
     });
   }
 
+  deleteFrames(id){
+    return this.http.delete(`${this.API_URI}/media/deleteEmbed/${id}`);
+  }
 
+  noFrameAvailables( ){
+    this.dataEmbed = [{
+      DATEUPLOAD: "2010-01-01T01:00:00.000Z",
+      EMAIL: this.dataLibrary[this.index].EMAIL,
+      EMBEDFRAME: `<div> No frames availables </div>`,
+      IDFRAME: 0,
+      IDMEDIA: this.dataLibrary[this.index].IDMEDIA,
+      NUMBEREPISODE: this.dataLibrary[this.index].NUMBEREPISODE,
+      QUALITY: null,
+      STATEFRAME: 0,
+      STATEUPLOAD: 1,
+      UPDATEUPLOAD: "2010-01-01T01:00:00.000Z",
+      URLFRAME: null
+    }];
+    this.addEmbed = false;
+    this.frameActive = 0;
+    this.updateEmbed = true;
+  }
 
 }

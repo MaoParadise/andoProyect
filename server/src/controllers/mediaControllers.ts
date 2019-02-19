@@ -139,7 +139,11 @@ class MediaController{
         
     }
 
-
+    public async deleteEmbedFrames(req: Request ,res: Response): Promise<void>{
+        const { id } = req.params;
+        await pool.query('DELETE FROM embedframe WHERE IDFRAME = ?', [id]);
+        res.json({message: 'The Frame was deleted'});
+    }
 
 }
 

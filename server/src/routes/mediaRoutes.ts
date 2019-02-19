@@ -24,6 +24,8 @@ class MediaRoutes{
         this.router.get('/library/:email', mediaController.getMediaLibrary);
 
         this.router.post('/embed/', verifyToken, mediaController.getEmbedFrames);
+
+        this.router.delete('/deleteEmbed/:id', verifyToken, mediaController.deleteEmbedFrames);
         
     }
 }

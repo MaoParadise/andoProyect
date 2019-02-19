@@ -15,6 +15,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
+            <button *ngIf="this.mediaS.updateEmbed" class="btn btn-danger btn-plus" (click)="deleteFrame()"> Eliminar </button>
             <button *ngIf="this.mediaS.updateEmbed" class="btn btn-warning btn-plus" (click)="showModalFrameUpdated()"> Actualizar </button>
             <button class="btn btn-warning btn-plus" (click)="showModalFrame()"> Agregar </button>
           </div>
@@ -65,7 +66,6 @@
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Guardar</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div> 
       </div>

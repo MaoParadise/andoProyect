@@ -54,7 +54,9 @@ export class MediaModalComponent implements OnInit {
           this.rawFrameEmbed = '';
           this.markError = false;
         },
-        err => console.error(err)
+        err => {
+          this.mediaS.noFrameAvailables();
+        }
       );
     }
   }
@@ -70,7 +72,9 @@ export class MediaModalComponent implements OnInit {
           this.mediaS.addEmbed = false;
           this.rawFrameEmbed = '';
        },
-       err => console.error(err)
+       err => {
+        this.mediaS.noFrameAvailables();
+       }
      );
 
 
@@ -114,6 +118,19 @@ export class MediaModalComponent implements OnInit {
     this.markError = false;
   }
 
+  deleteFrame(){
+    this.mediaS.deleteFrames(this.body.id).subscribe(
+      res => {
+          this.onPreMedia(this.header.id, this.header.email, this.header.numberEpisode);
+          this.mediaS.addEmbed = false;
+          this.rawFrameEmbed = '';
+       },
+       err => {
+        this.mediaS.noFrameAvailables();
+       }
+     );
+  }
+
   onSafeHtml(html: string){
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
@@ -145,7 +162,9 @@ export class MediaModalComponent implements OnInit {
       res => {
         this.mediaS.dataEmbed = res;
       },
-      err => console.error(err)
+      err => {
+        this.mediaS.noFrameAvailables();
+      }
     );
   }
 

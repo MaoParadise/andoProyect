@@ -39,6 +39,7 @@ export class MediaLibraryComponent implements OnInit {
   ];
 
   selectedQuality = '';
+  length = 0;
 
   public get media(): Media {
     return this._media;
@@ -242,9 +243,14 @@ export class MediaLibraryComponent implements OnInit {
       .subscribe(
         res => {
           this.dataLibrary = res;
+          this.length = this.dataLibrary.length
         },
         err => console.error(err)
       );
+  }
+
+  getLibraryLenght(){
+    return this.length;
   }
 
   saveUpload(){
@@ -290,8 +296,6 @@ export class MediaLibraryComponent implements OnInit {
       chapterBool = true;
     }
 
-    console.log(this.selectedQuality);
-
     if(this.selectedQuality == ''){
       this.showQualityError('Seleccione la calidad de imagen del video a subir');
       qualityBool = false;
@@ -335,8 +339,11 @@ export class MediaLibraryComponent implements OnInit {
         this.mediaS.addEmbed = false;
         this.mediaS.frameActive = 0;
         this.mediaS.updateEmbed = true;
+        console.log(this.mediaS.dataEmbed);
       },
-      err => console.error(err)
+      err => {
+        this.mediaS.noFrameAvailables();
+      } 
     );
   }
 
