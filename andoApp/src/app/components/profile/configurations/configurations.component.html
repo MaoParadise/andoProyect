@@ -4,18 +4,31 @@
         <br>
        <h2 class="text-muted">CONFIGURACIONES</h2> 
       </div>
-      <div class="col-md-8 offset-md-2 preferences">
+      <div class="col-md-9 offset-md-1 preferences">
         <br>
-        <input [(ngModel)]="_category.NAMECATEGORY" (input)="onChangeSearch()" class="form-control" type="text" name="preferences">
-        <br>
-        <div class="row">
+        <form>
+          <div class="input-group">
+            <input [(ngModel)]="_category.NAMECATEGORY" (input)="onChangeSearch()" class="form-control" type="text" name="preferences">
+            <button class="btn btn-warning" (click)="addNoneData(this.generalValidation.separateAndReplace(_category.NAMECATEGORY))"> Agregar </button>
+          </div>
+        </form>
+        <div class="text-small " *ngIf="dataCategory"> Sugeridos : </div>
+        <div class="row pref-succ">          
           <div *ngFor="let category of dataCategory; let i=index" class="col-xs-2">
             <button (click)="pushCategory(category)" class="btn option" value="category">{{ category.NAMECATEGORY }}</button>
           </div>
         </div>
-        <div class="row">
+        <br>
+        <h4> Preferencias </h4>
+        <div class="row pref-push">
             <div *ngFor="let localCategory of dataPush; let i=index" class="col-xs-2">
               <button class="btn option" value="localCategory">{{ localCategory.NAMECATEGORY }}</button>
+            </div>
+            <div *ngFor="let newCategory of NonedataPush; let j=index" class="col-xs-2">
+                <button class="btn optionNew" value="newCategory">{{ newCategory.NAMECATEGORY }}</button>
+            </div>
+            <div *ngFor="let invalidCategory of InvalidDataPush; let j=index" class="col-xs-2">
+                <button class="btn optionInvalid" value="InvalidCategory">{{ invalidCategory.NAMECATEGORY }}</button>
             </div>
         </div>
         <br>

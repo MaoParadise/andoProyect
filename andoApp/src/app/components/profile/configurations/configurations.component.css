@@ -7,17 +7,17 @@
     text-align: center;
 }
 
-.form-control{
+.input-group{
     border: 1px solid #000000;
 }
 
 .option{
-    background: #f0ad4e;
+    background: #4BBF73;
     text-align: center;
     margin-left: 15px;
-    margin-bottom: 5px;  
-    padding: 8px;
-    color: #ffffff;
+    margin-bottom: 5px; 
+    margin-top: 15px;  
+    color: #000000;
     border-radius: 15px;
     cursor: pointer;
     outline:none;
@@ -25,7 +25,47 @@
     font-size: 10px;
 }
 
-.option:hover{
-    background: #d19745;
-    border: 0;
+.optionNew{
+    background: #f0ad4e;
+    text-align: center;
+    margin-left: 15px;
+    margin-bottom: 5px; 
+    margin-top: 15px;  
+    color: #000000;
+    border-radius: 15px;
+    cursor: pointer;
+    outline:none;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.optionInvalid{
+    background: #e71d16;
+    text-align: center;
+    margin-left: 15px;
+    margin-bottom: 5px; 
+    margin-top: 15px;  
+    color: #000000;
+    border-radius: 15px;
+    cursor: pointer;
+    outline:none;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.pref-succ{
+    background: #ffffff;
+}
+
+.pref-push{
+    padding: 20px;
+    border: 1px solid #343a40;
+}
+
+h4{
+    text-align: center;
+}
+
+.text-small{
+    color: #000;
 }

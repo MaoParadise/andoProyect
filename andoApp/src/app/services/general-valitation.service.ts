@@ -22,4 +22,36 @@ export class GeneralValitationService {
     return out;
   }
   
+
+  lookRepeat( dataPush: any ,push : any){
+    let repeat = 0;
+    for(let i = 0; i < dataPush.length ; i++){
+      if(dataPush[i].NAMECATEGORY == push.NAMECATEGORY){
+        repeat++;
+      }
+    }
+    if(repeat > 1){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+
+  ItsPresent(NoneDataPush: any, noneData: any){
+    let itsPresent: boolean = false;
+    for(let i = 0; i < NoneDataPush.length; i++){
+      if(NoneDataPush[i].NAMECATEGORY == noneData){
+        itsPresent = true;
+        return itsPresent;
+      }
+    }
+    return itsPresent;
+  }
+
+  separateAndReplace(sentence: string){
+    return sentence.replace(/ /g, "").split(';')
+  }
+
+
 }
