@@ -1,0 +1,31 @@
+.preferences{
+    background: #ffffff;
+
+}
+
+.title-setting{
+    text-align: center;
+}
+
+.form-control{
+    border: 1px solid #000000;
+}
+
+.option{
+    background: #f0ad4e;
+    text-align: center;
+    margin-left: 15px;
+    margin-bottom: 5px;  
+    padding: 8px;
+    color: #ffffff;
+    border-radius: 15px;
+    cursor: pointer;
+    outline:none;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.option:hover{
+    background: #d19745;
+    border: 0;
+}

@@ -1,0 +1,24 @@
+<div class="container-fluid content">
+    <div class="row">
+      <div class="col-md-12 title-setting">
+        <br>
+       <h2 class="text-muted">CONFIGURACIONES</h2> 
+      </div>
+      <div class="col-md-8 offset-md-2 preferences">
+        <br>
+        <input [(ngModel)]="_category.NAMECATEGORY" (input)="onChangeSearch()" class="form-control" type="text" name="preferences">
+        <br>
+        <div class="row">
+          <div *ngFor="let category of dataCategory; let i=index" class="col-xs-2">
+            <button (click)="pushCategory(category)" class="btn option" value="category">{{ category.NAMECATEGORY }}</button>
+          </div>
+        </div>
+        <div class="row">
+            <div *ngFor="let localCategory of dataPush; let i=index" class="col-xs-2">
+              <button class="btn option" value="localCategory">{{ localCategory.NAMECATEGORY }}</button>
+            </div>
+        </div>
+        <br>
+      </div>
+    </div>
+</div>

@@ -12,6 +12,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard'
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MediaLibraryComponent } from './components/profile/media-library/media-library.component';
+import { ConfigurationsComponent } from './components/profile/configurations/configurations.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,11 @@ const routes: Routes = [
   {
     path: 'library',
     component: MediaLibraryComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'settings',
+    component: ConfigurationsComponent,
     canActivate: [AuthGuard]
   },
   {

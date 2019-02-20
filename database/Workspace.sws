@@ -12,6 +12,7 @@
 		<Model Expanded="Yes" ID="{488C4722-8083-40D8-8E19-CDC4BCD60A6B}" Loaded="No" Name="Ando_LogicalModel" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" URL="Ando_LogicalModel.ldm"/>
 		<Model Expanded="Yes" ID="{488C4722-8083-40D8-8E19-CDC4BCD60A6B}" Loaded="No" Name="Ando_LogicalModel" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" URL="Ando_LogicalModel.ldm"/>
 		<Model Expanded="Yes" ID="{488C4722-8083-40D8-8E19-CDC4BCD60A6B}" Loaded="No" Name="Ando_LogicalModel" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" URL="Ando_LogicalModel.ldm"/>
+		<Model Expanded="Yes" ID="{488C4722-8083-40D8-8E19-CDC4BCD60A6B}" Loaded="No" Name="Ando_LogicalModel" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" URL="Ando_LogicalModel.ldm"/>
 		<Model Expanded="Yes" ID="{488C4722-8083-40D8-8E19-CDC4BCD60A6B}" Name="Ando_LogicalModel" Selected="Yes" Type="{5F45F978-C4F3-4E35-A3FC-AF3318663A0F}" URL="Ando_LogicalModel.ldm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>

@@ -50,6 +50,17 @@ class CategoryController {
             res.json({ message: 'The Category was deleted' });
         });
     }
+    getCategoryLike(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = req.body.query;
+            const media = yield database_1.default.query(`SELECT * FROM category WHERE category.NAMECATEGORY LIKE '%${query}%' OR category.DESCRIPTIONCATEGORY LIKE '%${query}%' LIMIT 6`);
+            console.log(media.length);
+            if (media.length == 0) {
+                return res.status(404).json({ text: "The Category doesn't exits", boolean: false });
+            }
+            res.json(media);
+        });
+    }
 }
 const categoryController = new CategoryController();
 exports.default = categoryController;

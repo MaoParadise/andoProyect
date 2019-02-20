@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import categoryController  from '../controllers/categoryControllers'
-
+import categoryController  from '../controllers/categoryControllers';
+import { isLoggedIn, verifyToken } from '../passport/auth';
 class CategoryRoutes{
 
     public router: Router =  Router();
@@ -12,9 +12,10 @@ class CategoryRoutes{
     config(): void {
         this.router.get('/', categoryController.listCategoryMedia);
         this.router.get('/:id', categoryController.getCategoryMedia);
-        this.router.post('/',categoryController.createCategoryMedia);
-        this.router.delete('/:id', categoryController.deleteCategoryMedia);
-        this.router.put('/:id', categoryController.updateCategoryMedia);
+        this.router.post('/search/', categoryController.getCategoryLike)
+        this.router.post('/', verifyToken, categoryController.createCategoryMedia);
+        this.router.delete('/:id', verifyToken, categoryController.deleteCategoryMedia);
+        this.router.put('/:id', verifyToken, categoryController.updateCategoryMedia);
         
     }
 }

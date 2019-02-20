@@ -27,6 +27,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 //External
 import {NgxPaginationModule} from 'ngx-pagination';
 import { MediaModalComponent } from './components/profile/media-modal/media-modal.component';
+import { ConfigurationsComponent } from './components/profile/configurations/configurations.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { MediaModalComponent } from './components/profile/media-modal/media-moda
     AuthMessageComponent,
     NotFoundComponent,
     MediaLibraryComponent,
-    MediaModalComponent
+    MediaModalComponent,
+    ConfigurationsComponent
   ],
   imports: [
     BrowserModule,

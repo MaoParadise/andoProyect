@@ -38,6 +38,17 @@ class CategoryController{
         res.json({message: 'The Category was deleted'});
     }
 
+    public async getCategoryLike(req: Request, res: Response): Promise<any> {
+        const query = req.body.query;
+        const media = await pool.query(`SELECT * FROM category WHERE category.NAMECATEGORY LIKE '%${query}%' OR category.DESCRIPTIONCATEGORY LIKE '%${query}%' LIMIT 6`);
+        console.log(media.length);
+        if (media.length ==  0) {
+            return res.status(404).json({ text: "The Category doesn't exits", boolean: false });
+        }
+        res.json(media);
+        
+    }
+
 
 }
 

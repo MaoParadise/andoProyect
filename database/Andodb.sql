@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     13-02-2019 14:16:40                          */
+/* Created on:     19-02-2019 22:04:12                          */
 /*==============================================================*/
 
 
@@ -15,6 +15,8 @@ drop table if exists EMBEDFRAME;
 drop table if exists GENERALMETRIC;
 
 drop table if exists MEDIA;
+
+drop table if exists POINT;
 
 drop table if exists RANKING;
 
@@ -35,9 +37,10 @@ drop table if exists USER;
 /*==============================================================*/
 create table CATEGORY
 (
-   IDCATEGORY           int not null,
-   NAMECATEGORY         varchar(50),
+   IDCATEGORY           int not null auto_increment,
+   NAMECATEGORY         varchar(225),
    DESCRIPTIONCATEGORY  varchar(225),
+   INSERTMETHOD         varchar(50),
    primary key (IDCATEGORY)
 );
 
@@ -48,6 +51,7 @@ create table CATEGORYMEDIA
 (
    IDMEDIA              int not null,
    IDCATEGORY           int not null,
+   EMAIL                varchar(125),
    primary key (IDMEDIA, IDCATEGORY)
 );
 
@@ -70,7 +74,7 @@ create table EMBEDFRAME
 (
    IDFRAME              int not null auto_increment,
    IDMEDIA              int,
-   EMAIL                varchar(80),
+   EMAIL                varchar(125),
    NUMBEREPISODE        varchar(4),
    EMBEDFRAME           varchar(650),
    URLFRAME             varchar(225),
@@ -112,12 +116,26 @@ create table MEDIA
 );
 
 /*==============================================================*/
+/* Table: POINT                                                 */
+/*==============================================================*/
+create table POINT
+(
+   EMAIL                varchar(125) not null,
+   IDMEDIA              int not null,
+   UPL_EMAIL            varchar(125) not null,
+   NUMBEREPISODE        varchar(4) not null,
+   IPADRESS             varchar(250),
+   POINT                int,
+   primary key (EMAIL, IDMEDIA, UPL_EMAIL, NUMBEREPISODE)
+);
+
+/*==============================================================*/
 /* Table: RANKING                                               */
 /*==============================================================*/
 create table RANKING
 (
    IDMEDIA              int not null,
-   EMAIL                varchar(80) not null,
+   EMAIL                varchar(125) not null,
    RANKING              numeric(8,0),
    PECENTAGE            numeric(8,0),
    PECENTAGEROUNDED     numeric(8,0),
@@ -133,7 +151,7 @@ create table RELATIONSHIP
 (
    IDRELATIONSHIP       int not null auto_increment,
    IDMEDIA              int,
-   EMAIL                varchar(80),
+   EMAIL                varchar(125),
    NUMBEREPISODE        varchar(4),
    MED_IDMEDIA          int,
    primary key (IDRELATIONSHIP)
@@ -154,7 +172,7 @@ create table STATEMEDIA
 /*==============================================================*/
 create table SUPERUSER
 (
-   EMAIL                varchar(80) not null,
+   EMAIL                varchar(125) not null,
    GENERATETOKEN        varchar(225),
    DATECREATED          timestamp,
    DATEUPDATED          timestamp,
@@ -178,7 +196,7 @@ create table TYPE
 create table UPLOAD
 (
    IDMEDIA              int not null,
-   EMAIL                varchar(80) not null,
+   EMAIL                varchar(125) not null,
    NUMBEREPISODE        varchar(4) not null,
    DATEUPLOAD           timestamp,
    UPDATEUPLOAD         timestamp,
@@ -191,7 +209,7 @@ create table UPLOAD
 /*==============================================================*/
 create table USER
 (
-   EMAIL                varchar(80) not null,
+   EMAIL                varchar(125) not null,
    USER                 varchar(16) not null,
    PASSWORD             varchar(255),
    PUBLICNAME           varchar(50),
@@ -205,6 +223,9 @@ alter table CATEGORYMEDIA add constraint FK_CATEGORYCATEGORYMEDIA foreign key (I
 
 alter table CATEGORYMEDIA add constraint FK_MEDIACATEGORYMEDIA foreign key (IDMEDIA)
       references MEDIA (IDMEDIA) on delete restrict on update restrict;
+
+alter table CATEGORYMEDIA add constraint FK_USERCATEGORYMEDIA foreign key (EMAIL)
+      references USER (EMAIL) on delete restrict on update restrict;
 
 alter table EMBEDFRAME add constraint FK_UPLOADEMBEDFRAME foreign key (IDMEDIA, EMAIL, NUMBEREPISODE)
       references UPLOAD (IDMEDIA, EMAIL, NUMBEREPISODE) on delete restrict on update restrict;
@@ -220,6 +241,12 @@ alter table MEDIA add constraint FK_STATEMEDIAMEDIA foreign key (IDSTATEMEDIA)
 
 alter table MEDIA add constraint FK_TYPEMEDIA foreign key (IDTYPE)
       references TYPE (IDTYPE) on delete restrict on update restrict;
+
+alter table POINT add constraint FK_UPLOADPOINT foreign key (IDMEDIA, UPL_EMAIL, NUMBEREPISODE)
+      references UPLOAD (IDMEDIA, EMAIL, NUMBEREPISODE) on delete restrict on update restrict;
+
+alter table POINT add constraint FK_USERPOINT foreign key (EMAIL)
+      references USER (EMAIL) on delete restrict on update restrict;
 
 alter table RANKING add constraint FK_MEDIARANKING foreign key (IDMEDIA)
       references MEDIA (IDMEDIA) on delete restrict on update restrict;
