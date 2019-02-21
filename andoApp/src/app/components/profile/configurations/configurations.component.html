@@ -4,7 +4,7 @@
         <br>
        <h2 class="text-muted">CONFIGURACIONES</h2> 
       </div>
-      <div class="col-md-9 offset-md-1 preferences">
+      <div class="col-md-6 offset-md-3 preferences">
         <br>
         <form>
           <div class="input-group">
@@ -20,16 +20,22 @@
         </div>
         <br>
         <h4> Preferencias </h4>
-        <div class="row pref-push">
+        <div class="row">
             <div *ngFor="let localCategory of dataPush; let i=index" class="col-xs-2">
-              <button class="btn option" value="localCategory">{{ localCategory.NAMECATEGORY }}</button>
+              <button class="btn option" value="localCategory">{{ localCategory.NAMECATEGORY }} </button><i (click)="deleteDataPush(i)" class="delete fas fa-times-circle"></i>
             </div>
             <div *ngFor="let newCategory of NonedataPush; let j=index" class="col-xs-2">
-                <button class="btn optionNew" value="newCategory">{{ newCategory.NAMECATEGORY }}</button>
+                <button class="btn optionNew" value="newCategory">{{ newCategory.NAMECATEGORY }} </button><i (click)="deleteNoneData(j)" class="delete fas fa-times-circle"></i>
             </div>
             <div *ngFor="let invalidCategory of InvalidDataPush; let j=index" class="col-xs-2">
-                <button class="btn optionInvalid" value="InvalidCategory">{{ invalidCategory.NAMECATEGORY }}</button>
+                <button class="btn optionInvalid" value="InvalidCategory">{{ invalidCategory.NAMECATEGORY }}</button><i (click)="deleteInvalidData(j)" class="delete fas fa-times-circle"></i>
             </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-sm-2 offset-sm-9">
+            <div class="btn btn-primary" (click)="savePreferences()"> Guardar </div>
+          </div>
         </div>
         <br>
       </div>

@@ -19,7 +19,6 @@
     margin-top: 15px;  
     color: #000000;
     border-radius: 15px;
-    cursor: pointer;
     outline:none;
     font-weight: bold;
     font-size: 10px;
@@ -33,7 +32,6 @@
     margin-top: 15px;  
     color: #000000;
     border-radius: 15px;
-    cursor: pointer;
     outline:none;
     font-weight: bold;
     font-size: 10px;
@@ -47,7 +45,6 @@
     margin-top: 15px;  
     color: #000000;
     border-radius: 15px;
-    cursor: pointer;
     outline:none;
     font-weight: bold;
     font-size: 10px;
@@ -64,6 +61,12 @@
 
 h4{
     text-align: center;
+}
+
+.delete{
+    color: #e71d16;
+    font-size: 15px;
+    cursor: pointer;
 }
 
 .text-small{

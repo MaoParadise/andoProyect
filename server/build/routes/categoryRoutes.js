@@ -16,6 +16,8 @@ class CategoryRoutes {
         this.router.get('/:id', categoryControllers_1.default.getCategoryMedia);
         this.router.post('/search/', categoryControllers_1.default.getCategoryLike);
         this.router.post('/', auth_1.verifyToken, categoryControllers_1.default.createCategoryMedia);
+        this.router.post('/preference/', auth_1.verifyToken, categoryControllers_1.default.createPreferencesUser);
+        this.router.post('/make/', auth_1.verifyToken, categoryControllers_1.default.makePreferencesUser);
         this.router.delete('/:id', auth_1.verifyToken, categoryControllers_1.default.deleteCategoryMedia);
         this.router.put('/:id', auth_1.verifyToken, categoryControllers_1.default.updateCategoryMedia);
     }

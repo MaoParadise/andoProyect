@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     19-02-2019 22:04:12                          */
+/* Created on:     20-02-2019 19:48:29                          */
 /*==============================================================*/
 
 
@@ -17,6 +17,8 @@ drop table if exists GENERALMETRIC;
 drop table if exists MEDIA;
 
 drop table if exists POINT;
+
+drop table if exists PREFERENCE;
 
 drop table if exists RANKING;
 
@@ -51,7 +53,7 @@ create table CATEGORYMEDIA
 (
    IDMEDIA              int not null,
    IDCATEGORY           int not null,
-   EMAIL                varchar(125),
+   EMAIL                varchar(125) not null,
    primary key (IDMEDIA, IDCATEGORY)
 );
 
@@ -127,6 +129,17 @@ create table POINT
    IPADRESS             varchar(250),
    POINT                int,
    primary key (EMAIL, IDMEDIA, UPL_EMAIL, NUMBEREPISODE)
+);
+
+/*==============================================================*/
+/* Table: PREFERENCE                                            */
+/*==============================================================*/
+create table PREFERENCE
+(
+   EMAIL                varchar(125) not null,
+   IDCATEGORY           int not null,
+   DATEPREFERENCE       timestamp,
+   primary key (EMAIL, IDCATEGORY)
 );
 
 /*==============================================================*/
@@ -246,6 +259,12 @@ alter table POINT add constraint FK_UPLOADPOINT foreign key (IDMEDIA, UPL_EMAIL,
       references UPLOAD (IDMEDIA, EMAIL, NUMBEREPISODE) on delete restrict on update restrict;
 
 alter table POINT add constraint FK_USERPOINT foreign key (EMAIL)
+      references USER (EMAIL) on delete restrict on update restrict;
+
+alter table PREFERENCE add constraint FK_PREFERENCECATEGORY foreign key (IDCATEGORY)
+      references CATEGORY (IDCATEGORY) on delete restrict on update restrict;
+
+alter table PREFERENCE add constraint FK_USERPREFERENCE foreign key (EMAIL)
       references USER (EMAIL) on delete restrict on update restrict;
 
 alter table RANKING add constraint FK_MEDIARANKING foreign key (IDMEDIA)

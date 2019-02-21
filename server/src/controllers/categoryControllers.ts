@@ -46,9 +46,39 @@ class CategoryController{
             //return res.status(404).json({ text: "The Category doesn't exits", boolean: false });
         }
         res.json(media);
-        
     }
 
+    public async createPreferencesUser(req: Request ,res: Response): Promise<void>{
+        const insertObj = req.body;
+        let insertString = `INSERT INTO preference VALUES `
+        for(let i = 0; i < insertObj.length; i++){
+            if(i == insertObj.length-1){
+                insertString = insertString + `('${insertObj[i].EMAIL}', ${insertObj[i].IDCATEGORY}, CURRENT_TIMESTAMP)`
+            }else{
+                insertString = insertString + `('${insertObj[i].EMAIL}', ${insertObj[i].IDCATEGORY}, CURRENT_TIMESTAMP),`
+            }
+        }
+        console.log(insertString);
+        //await pool.query(insertString);
+        res.json({message: 'Preferences Saved '});
+    }
+
+    public async makePreferencesUser(req: Request ,res: Response): Promise<void>{
+        const insertObj = req.body;
+        let insertString = `INSERT INTO category VALUES `
+         for(let i = 0; i < insertObj.length; i++){
+             if(i == insertObj.length-1){
+                 insertString = insertString + `( NULL ,'${insertObj[i].NAMECATEGORY}', '${insertObj[i].NAMECATEGORY}', '${insertObj[i].INSERTMETHOD}')`
+            }else{
+                 insertString = insertString + `( NULL ,'${insertObj[i].NAMECATEGORY}', '${insertObj[i].NAMECATEGORY}', '${insertObj[i].INSERTMETHOD}'),`
+             }
+         }
+        //console.log(insertString);
+        await pool.query(insertString);
+        res.json({message: 'Paquet Category Saved '});
+    }
+    
+ 
 
 }
 

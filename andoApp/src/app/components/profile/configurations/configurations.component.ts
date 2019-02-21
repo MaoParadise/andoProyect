@@ -3,6 +3,7 @@ import { Category } from 'src/app/models/Category';
 import { CategoryService } from 'src/app/services/added/category.service';
 import { IfStmt } from '@angular/compiler';
 import { GeneralValitationService } from 'src/app/services/general-valitation.service';
+import { SetupService } from 'src/app/services/setup/setup.service';
 
 @Component({
   selector: 'app-configurations',
@@ -24,7 +25,8 @@ export class ConfigurationsComponent implements OnInit {
 
   constructor(
     private categoryS: CategoryService, 
-    private generalValidation: GeneralValitationService
+    private generalValidation: GeneralValitationService,
+    private setup: SetupService
     ) { }
 
   ngOnInit() {
@@ -68,6 +70,7 @@ export class ConfigurationsComponent implements OnInit {
         if(noneData[i].length > 3){
           this.NonedataPush.push(
             {
+              IDCATEGORY: null,
               NAMECATEGORY : noneData[i],
               DESCRIPTIONCATEGORY: noneData[i],
               INSERTMETHOD: 'userMethod'
@@ -76,6 +79,7 @@ export class ConfigurationsComponent implements OnInit {
         }else{
           this.InvalidDataPush.push(
             {
+              IDCATEGORY: null,
               NAMECATEGORY : noneData[i],
               DESCRIPTIONCATEGORY: noneData[i],
               INSERTMETHOD: 'invalidMethod'
@@ -86,11 +90,45 @@ export class ConfigurationsComponent implements OnInit {
     }
   }
 
-  addNoneDataTest(noneData : any){
-    console.log(noneData);
+  savePreferences(){
+    let totalData: any = [];
+    totalData.push(this.dataPush);
+    totalData.push(this.NonedataPush);
+    this.categoryS.saveUserPreferences(totalData[0], this.setup.getMail(this.setup.getCondition())).subscribe(
+      res =>{
+        console.log(res);
+      }, 
+      err => 
+      { 
+        console.log(err);
+      }
+    );
+    
+    this.categoryS.makeUserPreferences(totalData).subscribe(
+      res =>{
+        console.log(res);
+      }, 
+      err => 
+      { 
+        console.log(err);
+      }
+    );
+
+
   }
 
-  
+
+  deleteDataPush(index: number){
+    this.dataPush.splice(index, 1);
+  }
+
+  deleteNoneData(index: number){
+    this.NonedataPush.splice(index, 1);
+  }
  
+  deleteInvalidData(index: number)
+  {
+    this.InvalidDataPush.splice(index, 1);
+  }
 
 }

@@ -61,6 +61,40 @@ class CategoryController {
             res.json(media);
         });
     }
+    createPreferencesUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const insertObj = req.body;
+            let insertString = `INSERT INTO preference VALUES `;
+            for (let i = 0; i < insertObj.length; i++) {
+                if (i == insertObj.length - 1) {
+                    insertString = insertString + `('${insertObj[i].EMAIL}', ${insertObj[i].IDCATEGORY}, CURRENT_TIMESTAMP)`;
+                }
+                else {
+                    insertString = insertString + `('${insertObj[i].EMAIL}', ${insertObj[i].IDCATEGORY}, CURRENT_TIMESTAMP),`;
+                }
+            }
+            console.log(insertString);
+            //await pool.query(insertString);
+            res.json({ message: 'Preferences Saved ' });
+        });
+    }
+    makePreferencesUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const insertObj = req.body;
+            let insertString = `INSERT INTO category VALUES `;
+            for (let i = 0; i < insertObj.length; i++) {
+                if (i == insertObj.length - 1) {
+                    insertString = insertString + `( NULL ,'${insertObj[i].NAMECATEGORY}', '${insertObj[i].NAMECATEGORY}', '${insertObj[i].INSERTMETHOD}')`;
+                }
+                else {
+                    insertString = insertString + `( NULL ,'${insertObj[i].NAMECATEGORY}', '${insertObj[i].NAMECATEGORY}', '${insertObj[i].INSERTMETHOD}'),`;
+                }
+            }
+            //console.log(insertString);
+            yield database_1.default.query(insertString);
+            res.json({ message: 'Paquet Category Saved ' });
+        });
+    }
 }
 const categoryController = new CategoryController();
 exports.default = categoryController;
