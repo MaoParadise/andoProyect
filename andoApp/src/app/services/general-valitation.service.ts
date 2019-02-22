@@ -37,6 +37,32 @@ export class GeneralValitationService {
     }
   }
 
+  lookRepeatString( dataPush: any ,push : string){
+    let repeat = 0;
+    for(let i = 0; i < dataPush.length ; i++){
+      if(dataPush[i].NAMECATEGORY == push){
+        repeat++;
+      }
+    }
+    if(repeat > 1){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  processRepeatSimple(data: any){
+    var map = {};
+    var result = [];
+    for(let i= 0, length = data.length; i < length ; i++ ){
+      if(!(data[i] in map)){ 
+        map[data[i]] = true;
+        result.push(data[i]);
+      }
+    }
+    return result;
+  }
+
 
   ItsPresent(NoneDataPush: any, noneData: any){
     let itsPresent: boolean = false;
@@ -51,6 +77,10 @@ export class GeneralValitationService {
 
   separateAndReplace(sentence: string){
     return sentence.replace(/ /g, "").split(';')
+  }
+
+  separateAndReplaceAndMinus(sentence: string){
+    return sentence.toLowerCase().replace(/ /g, "").split(';');
   }
 
 

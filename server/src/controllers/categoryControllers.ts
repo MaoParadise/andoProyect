@@ -49,37 +49,10 @@ class CategoryController{
     }
 
     public async createPreferencesUser(req: Request ,res: Response): Promise<void>{
-        const insertObj = req.body;
-        let insertString = `INSERT INTO preference VALUES `
-        for(let i = 0; i < insertObj.length; i++){
-            if(i == insertObj.length-1){
-                insertString = insertString + `('${insertObj[i].EMAIL}', ${insertObj[i].IDCATEGORY}, CURRENT_TIMESTAMP)`
-            }else{
-                insertString = insertString + `('${insertObj[i].EMAIL}', ${insertObj[i].IDCATEGORY}, CURRENT_TIMESTAMP),`
-            }
-        }
-        console.log(insertString);
-        //await pool.query(insertString);
+        await pool.query(`INSERT INTO preference VALUES ('${req.body.email}', '${req.body.data}', CURRENT_TIMESTAMP)`);
         res.json({message: 'Preferences Saved '});
     }
-
-    public async makePreferencesUser(req: Request ,res: Response): Promise<void>{
-        const insertObj = req.body;
-        let insertString = `INSERT INTO category VALUES `
-         for(let i = 0; i < insertObj.length; i++){
-             if(i == insertObj.length-1){
-                 insertString = insertString + `( NULL ,'${insertObj[i].NAMECATEGORY}', '${insertObj[i].NAMECATEGORY}', '${insertObj[i].INSERTMETHOD}')`
-            }else{
-                 insertString = insertString + `( NULL ,'${insertObj[i].NAMECATEGORY}', '${insertObj[i].NAMECATEGORY}', '${insertObj[i].INSERTMETHOD}'),`
-             }
-         }
-        //console.log(insertString);
-        await pool.query(insertString);
-        res.json({message: 'Paquet Category Saved '});
-    }
     
- 
-
 }
 
 const categoryController = new CategoryController();

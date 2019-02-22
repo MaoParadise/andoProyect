@@ -15,7 +15,6 @@ class CategoryRoutes{
         this.router.post('/search/', categoryController.getCategoryLike)
         this.router.post('/', verifyToken, categoryController.createCategoryMedia);
         this.router.post('/preference/', verifyToken, categoryController.createPreferencesUser);
-        this.router.post('/make/', verifyToken, categoryController.makePreferencesUser);
         this.router.delete('/:id', verifyToken, categoryController.deleteCategoryMedia);
         this.router.put('/:id', verifyToken, categoryController.updateCategoryMedia);
         

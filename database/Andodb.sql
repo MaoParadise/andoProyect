@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     20-02-2019 19:48:29                          */
+/* Created on:     22-02-2019 18:07:15                          */
 /*==============================================================*/
 
 
@@ -137,9 +137,9 @@ create table POINT
 create table PREFERENCE
 (
    EMAIL                varchar(125) not null,
-   IDCATEGORY           int not null,
-   DATEPREFERENCE       timestamp,
-   primary key (EMAIL, IDCATEGORY)
+   PREFERENCESTRING     varchar(650),
+   DATE                 timestamp,
+   primary key (EMAIL)
 );
 
 /*==============================================================*/
@@ -238,7 +238,7 @@ alter table CATEGORYMEDIA add constraint FK_MEDIACATEGORYMEDIA foreign key (IDME
       references MEDIA (IDMEDIA) on delete restrict on update restrict;
 
 alter table CATEGORYMEDIA add constraint FK_USERCATEGORYMEDIA foreign key (EMAIL)
-      references USER (EMAIL) on delete restrict on update restrict;
+      references SUPERUSER (EMAIL) on delete restrict on update restrict;
 
 alter table EMBEDFRAME add constraint FK_UPLOADEMBEDFRAME foreign key (IDMEDIA, EMAIL, NUMBEREPISODE)
       references UPLOAD (IDMEDIA, EMAIL, NUMBEREPISODE) on delete restrict on update restrict;
@@ -260,9 +260,6 @@ alter table POINT add constraint FK_UPLOADPOINT foreign key (IDMEDIA, UPL_EMAIL,
 
 alter table POINT add constraint FK_USERPOINT foreign key (EMAIL)
       references USER (EMAIL) on delete restrict on update restrict;
-
-alter table PREFERENCE add constraint FK_PREFERENCECATEGORY foreign key (IDCATEGORY)
-      references CATEGORY (IDCATEGORY) on delete restrict on update restrict;
 
 alter table PREFERENCE add constraint FK_USERPREFERENCE foreign key (EMAIL)
       references USER (EMAIL) on delete restrict on update restrict;

@@ -20,22 +20,12 @@ export class CategoryService {
     });
   }
 
-  saveUserPreferences(data:any, currentMail: string){
-    let DataSend: any = [];
-    for(let i = 0; i < data.length; i++){
-      DataSend.push(
-        {
-        EMAIL: currentMail,
-        IDCATEGORY: data[i].IDCATEGORY,
-        DATEPREFERENCE: 'CURRENT_TIMESTAMP'
-        }
-      )
-    }
-    return this.http.post(`${this.API_URI}/categorys/preference/`, DataSend);
-  }
-
-  makeUserPreferences(data:any){
-    return this.http.post(`${this.API_URI}/categorys/make/`, data[1]);
+  makeUserPreferences(dataString:string, currentMail: string){
+    return this.http.post(`${this.API_URI}/categorys/preference/`, 
+    {
+      email: currentMail,
+      data: dataString
+    });
   }
 
 

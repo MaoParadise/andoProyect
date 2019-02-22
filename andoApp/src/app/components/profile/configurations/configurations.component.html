@@ -9,7 +9,7 @@
         <form>
           <div class="input-group">
             <input [(ngModel)]="_category.NAMECATEGORY" (input)="onChangeSearch()" class="form-control" type="text" name="preferences">
-            <button class="btn btn-warning" (click)="addNoneData(this.generalValidation.separateAndReplace(_category.NAMECATEGORY))"> Agregar </button>
+            <button class="btn btn-warning" (click)="addNoneData(this.generalValidation.processRepeatSimple(this.generalValidation.separateAndReplaceAndMinus(_category.NAMECATEGORY)))"> Agregar </button>
           </div>
         </form>
         <div class="text-small " *ngIf="dataCategory"> Sugeridos : </div>

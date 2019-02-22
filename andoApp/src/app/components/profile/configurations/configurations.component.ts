@@ -22,6 +22,7 @@ export class ConfigurationsComponent implements OnInit {
     DESCRIPTIONCATEGORY: '',
     INSERTMETHOD: ''
   };
+  maxData: number = 0;
 
   constructor(
     private categoryS: CategoryService, 
@@ -54,10 +55,12 @@ export class ConfigurationsComponent implements OnInit {
     if(this.dataPush.includes(push)){
     }else{
       this.dataPush.push(push);
+      this.maxData++;
     }
 
     if(this.generalValidation.lookRepeat(this.dataPush, push)){
       this.dataPush.pop();
+      this.maxData--;
     }
 
   }
@@ -76,6 +79,7 @@ export class ConfigurationsComponent implements OnInit {
               INSERTMETHOD: 'userMethod'
             }
           )
+          this.maxData++;
         }else{
           this.InvalidDataPush.push(
             {
@@ -85,50 +89,54 @@ export class ConfigurationsComponent implements OnInit {
               INSERTMETHOD: 'invalidMethod'
             }
           )
+          this.maxData++; 
         }
       }
     }
   }
 
   savePreferences(){
-    let totalData: any = [];
-    totalData.push(this.dataPush);
-    totalData.push(this.NonedataPush);
-    this.categoryS.saveUserPreferences(totalData[0], this.setup.getMail(this.setup.getCondition())).subscribe(
-      res =>{
-        console.log(res);
-      }, 
-      err => 
-      { 
-        console.log(err);
+   let TotalData: string= '';
+    for(let i = 0; i < this.dataPush.length; i++){
+      if(i == this.dataPush.length-1){
+        TotalData = TotalData + this.dataPush[i].NAMECATEGORY;
+      }else{
+        TotalData = TotalData + this.dataPush[i].NAMECATEGORY+';';
       }
-    );
-    
-    this.categoryS.makeUserPreferences(totalData).subscribe(
-      res =>{
-        console.log(res);
-      }, 
-      err => 
-      { 
-        console.log(err);
+    }
+    if(this.NonedataPush.length > 0){
+      TotalData = TotalData + ";";
+      for(let i = 0; i < this.NonedataPush.length; i++){
+        if(i == this.NonedataPush.length-1){
+          TotalData = TotalData + this.NonedataPush[i].NAMECATEGORY;
+        }else{
+          TotalData = TotalData + this.NonedataPush[i].NAMECATEGORY+';';
+        }
       }
+    }
+    this.categoryS.makeUserPreferences(TotalData, this.setup.getMail(this.setup.getCondition())).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => console.error(err)
     );
-
-
   }
 
 
   deleteDataPush(index: number){
     this.dataPush.splice(index, 1);
+    this.maxData--;
   }
 
   deleteNoneData(index: number){
     this.NonedataPush.splice(index, 1);
+    this.maxData--;
   }
  
   deleteInvalidData(index: number)
   {
     this.InvalidDataPush.splice(index, 1);
+    this.maxData--;
   }
 
 }
