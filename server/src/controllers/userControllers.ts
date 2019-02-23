@@ -25,7 +25,17 @@ class UserController{
 
     public async getUser(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const category = await pool.query(`SELECT EMAIL,USER,PUBLICNAME,URLPROFILEPICTURE,ACTIVEPROFILE FROM user WHERE user.EMAIL = '${id}' OR user.USER = '${id}'`);
+        const category = await pool.query(`SELECT user.EMAIL,user.USER,user.PUBLICNAME,user.URLPROFILEPICTURE,user.ACTIVEPROFILE,preference.PREFERENCESTRING FROM user INNER JOIN preference ON user.EMAIL = preference.EMAIL WHERE user.EMAIL = '${id}' OR user.USER = '${id}'`);
+        console.log(category.length);
+        if (category.length > 0) {
+            return res.json(category[0]);
+        }
+        res.status(404).json({ text: "The User doesn't exits", boolean: false });
+    }
+
+    public async getUserAlone(req: Request, res: Response): Promise<any> {
+        const { id } = req.params;
+        const category = await pool.query(`SELECT user.EMAIL,user.USER,user.PUBLICNAME,user.URLPROFILEPICTURE,user.ACTIVEPROFILE FROM user WHERE user.EMAIL = '${id}' OR user.USER = '${id}'`);
         console.log(category.length);
         if (category.length > 0) {
             return res.json(category[0]);

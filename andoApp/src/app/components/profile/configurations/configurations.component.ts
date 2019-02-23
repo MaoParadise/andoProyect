@@ -31,6 +31,7 @@ export class ConfigurationsComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.showDataMain();
   }
 
   onChangeSearch(){
@@ -65,6 +66,41 @@ export class ConfigurationsComponent implements OnInit {
 
   }
 
+
+  recoverPreferences(){
+    let data:any;
+    this.categoryS.getPreferences(this.setup.getMail(this.setup.getCondition())).subscribe(
+      res => {
+        data = res;
+        this.setup.setCurrentPreferences(this.setup.getCondition(), data[0].PREFERENCESTRING);
+        this.dataPush = [];
+        this.NonedataPush = [];
+        this.InvalidDataPush = [];
+        this.maxData = 0;
+        this.showDataMain();
+      },
+      err => console.error(err)
+    );
+  }
+
+  showDataMain(){
+    if(this.isReferencesStringEmpty()){
+    }else{
+      let ArrayString = this.generalValidation.separateAndReplaceAndMinus(this.setup.getCurrentPreferences(this.setup.getCondition()));
+      for(let i = 0; i < ArrayString.length; i++){
+        this.dataPush.push(
+          {
+            IDCATEGORY: null,
+            NAMECATEGORY : ArrayString[i],
+            DESCRIPTIONCATEGORY: ArrayString[i],
+            INSERTMETHOD: 'requestMethod'
+          }
+        )
+        this.maxData++;
+      }
+    }
+  }
+
   addNoneData(noneData : any){
     for(let i = 0; i < noneData.length; i++){
       if(this.generalValidation.ItsPresent(this.NonedataPush, noneData[i])){
@@ -95,8 +131,17 @@ export class ConfigurationsComponent implements OnInit {
     }
   }
 
-  savePreferences(){
-   let TotalData: string= '';
+  isReferencesStringEmpty(){
+    if(this.setup.getCurrentPreferences(this.setup.getCondition()) == '' 
+    || this.setup.getCurrentPreferences(this.setup.getCondition()) == null){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  joinDataReferences(){
+    let TotalData: string= '';
     for(let i = 0; i < this.dataPush.length; i++){
       if(i == this.dataPush.length-1){
         TotalData = TotalData + this.dataPush[i].NAMECATEGORY;
@@ -114,12 +159,32 @@ export class ConfigurationsComponent implements OnInit {
         }
       }
     }
-    this.categoryS.makeUserPreferences(TotalData, this.setup.getMail(this.setup.getCondition())).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => console.error(err)
-    );
+    return TotalData;
+  }
+
+  savePreferences(){
+    if(this.maxData <= 30){
+      if(this.isReferencesStringEmpty()){
+        let TotalData = this.joinDataReferences();
+        this.categoryS.makeUserPreferences(TotalData, this.setup.getMail(this.setup.getCondition())).subscribe(
+          res => {
+            this.recoverPreferences();
+          },
+          err => console.error(err)
+        );
+      }else{
+        let TotalData = this.joinDataReferences();
+        this.categoryS.UpdateUserPreferences(TotalData, this.setup.getMail(this.setup.getCondition())).subscribe(
+          res => {
+            this.recoverPreferences();
+          },
+          err => console.error(err)
+        );
+      }
+    }else{
+      console.log("ERROR: preferencias superan las 30 unidades");
+    }
+    
   }
 
 

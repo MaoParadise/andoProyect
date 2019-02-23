@@ -26,7 +26,18 @@ class UserController {
     getUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const category = yield database_1.default.query(`SELECT EMAIL,USER,PUBLICNAME,URLPROFILEPICTURE,ACTIVEPROFILE FROM user WHERE user.EMAIL = '${id}' OR user.USER = '${id}'`);
+            const category = yield database_1.default.query(`SELECT user.EMAIL,user.USER,user.PUBLICNAME,user.URLPROFILEPICTURE,user.ACTIVEPROFILE,preference.PREFERENCESTRING FROM user INNER JOIN preference ON user.EMAIL = preference.EMAIL WHERE user.EMAIL = '${id}' OR user.USER = '${id}'`);
+            console.log(category.length);
+            if (category.length > 0) {
+                return res.json(category[0]);
+            }
+            res.status(404).json({ text: "The User doesn't exits", boolean: false });
+        });
+    }
+    getUserAlone(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const category = yield database_1.default.query(`SELECT user.EMAIL,user.USER,user.PUBLICNAME,user.URLPROFILEPICTURE,user.ACTIVEPROFILE FROM user WHERE user.EMAIL = '${id}' OR user.USER = '${id}'`);
             console.log(category.length);
             if (category.length > 0) {
                 return res.json(category[0]);

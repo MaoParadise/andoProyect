@@ -18,6 +18,7 @@ class UserRoutes {
     config() {
         //this.router.get('/', userController.listUser);
         this.router.get('/:id', auth_1.verifyToken, userControllers_1.default.getUser);
+        this.router.get('/alone/:id', auth_1.verifyToken, userControllers_1.default.getUserAlone);
         this.router.post('/', userControllers_1.default.createUser);
         this.router.delete('/:id', auth_1.verifyToken, userControllers_1.default.deleteUser);
         this.router.put('/:id', auth_1.verifyToken, userControllers_1.default.updateUser);

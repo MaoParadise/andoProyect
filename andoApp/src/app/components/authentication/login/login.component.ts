@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GeneralValitationService } from 'src/app/services/general-valitation.service';
 import { SetupService } from 'src/app/services/setup/setup.service';
+import { CategoryService } from 'src/app/services/added/category.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     PASSWORD: '',
     PUBLICNAME: '',
     URLPROFILEPICTURE: 'no-profile',
-    ACTIVEPROFILE: 0
+    ACTIVEPROFILE: 0,
+    PREFERENCESTRING: ''
   }
 
   data: any ={
@@ -29,12 +31,14 @@ export class LoginComponent implements OnInit {
     user: ''
   }
 
+  prefData: any;
+  pref: string = ''
+
   constructor(
     private auth: AuthenticationServiceService,
-    private router: Router, 
-    private http: HttpClient, 
     private valitate: GeneralValitationService, 
-    private setup: SetupService
+    private setup: SetupService,
+    private preferences: CategoryService
     ) { }
 
   ngOnInit() {
@@ -101,10 +105,21 @@ export class LoginComponent implements OnInit {
             this.auth.showUser(this.data.user).subscribe(
               (res)=>{
                 this.user = res;
-                console.log(this.setup.getCondition());
-                this.setup.getSessionOrLocalStoragesLoginUser(this.setup.getCondition(),this.user.URLPROFILEPICTURE,this.user.EMAIL);
+                console.log(this.user);
+                this.setup.getSessionOrLocalStoragesLoginUser(this.setup.getCondition(),this.user.URLPROFILEPICTURE,this.user.EMAIL, this.user.PREFERENCESTRING);
+              },(err) =>{
+                this.auth.showUserAlone(this.data.user).subscribe(
+                  (res)=>{
+                    this.user = res;
+                    console.log(this.user);
+                    this.setup.getSessionOrLocalStoragesLoginUser(this.setup.getCondition(),this.user.URLPROFILEPICTURE,this.user.EMAIL, '');
+                  },(err) =>{
+                    console.log(err)
+                  }
+                );
               }
             );
+            
             window.location.href = "/main";
             console.log(this.auth.isLoggedIn);
           }else{

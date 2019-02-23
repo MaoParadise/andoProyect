@@ -17,8 +17,10 @@ class CategoryRoutes {
         this.router.post('/search/', categoryControllers_1.default.getCategoryLike);
         this.router.post('/', auth_1.verifyToken, categoryControllers_1.default.createCategoryMedia);
         this.router.post('/preference/', auth_1.verifyToken, categoryControllers_1.default.createPreferencesUser);
+        this.router.post('/get/preference/', auth_1.verifyToken, categoryControllers_1.default.getPreferences);
         this.router.delete('/:id', auth_1.verifyToken, categoryControllers_1.default.deleteCategoryMedia);
         this.router.put('/:id', auth_1.verifyToken, categoryControllers_1.default.updateCategoryMedia);
+        this.router.put('/preference/:id', auth_1.verifyToken, categoryControllers_1.default.updatePreferences);
     }
 }
 const categoryRoutes = new CategoryRoutes();

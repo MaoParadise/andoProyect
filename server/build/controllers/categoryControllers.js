@@ -67,6 +67,20 @@ class CategoryController {
             res.json({ message: 'Preferences Saved ' });
         });
     }
+    updatePreferences(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.query('UPDATE preference set ? WHERE EMAIL = ?', [req.body, id]);
+            res.json({ message: 'the Preferences was updated' });
+        });
+    }
+    getPreferences(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = req.body.query;
+            const preferences = yield database_1.default.query(`SELECT * from preference WHERE EMAIL = '${query}'`);
+            res.json(preferences);
+        });
+    }
 }
 const categoryController = new CategoryController();
 exports.default = categoryController;

@@ -71,6 +71,10 @@ export class AuthenticationServiceService {
   }
 
 
+  showUserAlone(username: string){
+    return this.http.get(`http://localhost:3000/api/users/alone/${username}`);
+  }
+
   getToken(condition: boolean){
     if(condition){
       return localStorage.getItem('token');

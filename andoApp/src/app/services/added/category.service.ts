@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {  HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 import { SetupService } from '../setup/setup.service';
 
 
@@ -25,6 +25,20 @@ export class CategoryService {
     {
       email: currentMail,
       data: dataString
+    });
+  }
+
+  UpdateUserPreferences(PREFERENCESTRING:string, currentMail: string){
+    return this.http.put(`${this.API_URI}/categorys/preference/${currentMail}`, 
+    {
+      PREFERENCESTRING: PREFERENCESTRING,
+      DATE: null
+    });
+  }
+
+  getPreferences(query: string){
+    return this.http.post(`${this.API_URI}/categorys/get/preference/`, {
+      query: query
     });
   }
 

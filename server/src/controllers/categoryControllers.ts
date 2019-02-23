@@ -52,7 +52,21 @@ class CategoryController{
         await pool.query(`INSERT INTO preference VALUES ('${req.body.email}', '${req.body.data}', CURRENT_TIMESTAMP)`);
         res.json({message: 'Preferences Saved '});
     }
+
+    public async updatePreferences(req: Request ,res: Response): Promise<any>{
+        const { id } = req.params;
+        await pool.query('UPDATE preference set ? WHERE EMAIL = ?', [req.body, id]);
+        res.json({message: 'the Preferences was updated'}); 
+    }
+
+    public async getPreferences(req: Request ,res: Response){
+        const query = req.body.query;
+        const preferences = await pool.query(`SELECT * from preference WHERE EMAIL = '${query}'`);
+        res.json(preferences);
+    }
     
+
+
 }
 
 const categoryController = new CategoryController();
