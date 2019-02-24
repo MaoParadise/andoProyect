@@ -12,6 +12,14 @@ import { SetupService } from 'src/app/services/setup/setup.service';
 })
 export class ConfigurationsComponent implements OnInit {
 
+// ------------- data of the checkbox's and general config---//
+
+ config: any = {
+   searchProfile: false,
+   sessionProfile: this.setup.getCondition()
+ }
+
+// ------------- data of the preferences --------------//
   dataCategory: any;
   dataPush: any = [];
   NonedataPush: any = [];
@@ -23,6 +31,9 @@ export class ConfigurationsComponent implements OnInit {
     INSERTMETHOD: ''
   };
   maxData: number = 0;
+
+
+
 
   constructor(
     private categoryS: CategoryService, 
@@ -84,19 +95,21 @@ export class ConfigurationsComponent implements OnInit {
   }
 
   showDataMain(){
-    if(this.isReferencesStringEmpty()){
+    if(this.isReferencesStringEmpty() ){
     }else{
-      let ArrayString = this.generalValidation.separateAndReplaceAndMinus(this.setup.getCurrentPreferences(this.setup.getCondition()));
-      for(let i = 0; i < ArrayString.length; i++){
-        this.dataPush.push(
-          {
-            IDCATEGORY: null,
-            NAMECATEGORY : ArrayString[i],
-            DESCRIPTIONCATEGORY: ArrayString[i],
-            INSERTMETHOD: 'requestMethod'
-          }
-        )
-        this.maxData++;
+      if(this.setup.getCurrentPreferences(this.setup.getCondition()) != ''){
+        let ArrayString = this.generalValidation.separateAndReplaceAndMinus(this.setup.getCurrentPreferences(this.setup.getCondition()));
+        for(let i = 0; i < ArrayString.length; i++){
+          this.dataPush.push(
+            {
+              IDCATEGORY: null,
+              NAMECATEGORY : ArrayString[i],
+              DESCRIPTIONCATEGORY: ArrayString[i],
+              INSERTMETHOD: 'requestMethod'
+            }
+          )
+          this.maxData++;
+        }
       }
     }
   }
@@ -132,8 +145,7 @@ export class ConfigurationsComponent implements OnInit {
   }
 
   isReferencesStringEmpty(){
-    if(this.setup.getCurrentPreferences(this.setup.getCondition()) == '' 
-    || this.setup.getCurrentPreferences(this.setup.getCondition()) == null){
+    if(this.setup.getCurrentPreferences(this.setup.getCondition()) == 'no-references'){
       return true;
     }else{
       return false;
@@ -150,7 +162,9 @@ export class ConfigurationsComponent implements OnInit {
       }
     }
     if(this.NonedataPush.length > 0){
-      TotalData = TotalData + ";";
+      if(this.dataPush.length > 0){
+        TotalData = TotalData + ";";
+      }
       for(let i = 0; i < this.NonedataPush.length; i++){
         if(i == this.NonedataPush.length-1){
           TotalData = TotalData + this.NonedataPush[i].NAMECATEGORY;
@@ -162,7 +176,8 @@ export class ConfigurationsComponent implements OnInit {
     return TotalData;
   }
 
-  savePreferences(){
+  saveConfiguration(){
+
     if(this.maxData <= 30){
       if(this.isReferencesStringEmpty()){
         let TotalData = this.joinDataReferences();
@@ -185,6 +200,17 @@ export class ConfigurationsComponent implements OnInit {
       console.log("ERROR: preferencias superan las 30 unidades");
     }
     
+    console.log(this.config.sessionProfile);
+    if(this.config.sessionProfile){
+      if(!(this.setup.getCondition())){
+        this.setup.setCondition(true);
+        this.setup.changeOfSession(this.setup.getCondition());
+      }
+    }else{
+        this.setup.setCondition(false);
+        this.setup.changeOfSession(this.setup.getCondition());
+    }
+
   }
 
 

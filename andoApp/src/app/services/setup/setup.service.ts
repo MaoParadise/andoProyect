@@ -38,15 +38,15 @@ export class SetupService {
 
   }
 
-  getSessionOrLocalStoragesLoginUser(condition: boolean, profileImage: string, email: string, reference?: string){
+  getSessionOrLocalStoragesLoginUser(condition: boolean, profileImage: string, email: string){
     if(condition){
         localStorage.setItem('profileImage', profileImage);
         localStorage.setItem('currentMail', email);
-        localStorage.setItem('currentPreferences', reference);
+        localStorage.setItem('currentPreferences', 'no-references');
     }else{
         sessionStorage.setItem('profileImage', profileImage);
         sessionStorage.setItem('currentMail', email);
-        sessionStorage.setItem('currentPreferences', reference);
+        sessionStorage.setItem('currentPreferences', 'no-references');
     }
   }
   
@@ -60,16 +60,35 @@ export class SetupService {
         localStorage.setItem('CurrentUser', user);
         localStorage.setItem('currentMail', email);
         localStorage.setItem('profileImage','no-profile'); 
-        localStorage.setItem('currentPreferences', '');
+        localStorage.setItem('currentPreferences', 'no-references');
     }else{
         sessionStorage.setItem('token', token);
         sessionStorage.setItem('CurrentUser', user);
         sessionStorage.setItem('currentMail', email);
         sessionStorage.setItem('profileImage','no-profile'); 
-        sessionStorage.setItem('currentPreferences', '');
+        sessionStorage.setItem('currentPreferences', 'no-references');
     }
   }
 //-------------------------------------------------------------------------------------------------
+setCurrentPreferences(condition:boolean, preferences: string){
+  if(condition){
+    localStorage.setItem('currentPreferences', preferences); 
+  }else{
+    sessionStorage.setItem('currentPreferences', preferences); 
+  }
+}
+
+setCondition(condition:boolean){
+  if(condition){
+    localStorage.setItem('condition', condition+''); 
+  }else{
+    localStorage.setItem('condition', condition+'');  
+  }
+}
+
+
+
+
 getSessionOrLocalProfileImage(condition: boolean, profileImage: string){
   if(condition){
       localStorage.setItem('profileImage', profileImage); 
@@ -86,13 +105,6 @@ getCurrentPreferences(condition:boolean){
   }
 }
 
-setCurrentPreferences(condition:boolean, preferences: string){
-  if(condition){
-    localStorage.setItem('currentPreferences', preferences); 
-  }else{
-    sessionStorage.setItem('currentPreferences', preferences); 
-  }
-}
 
 getUser(condition:boolean){
     if(condition){
@@ -154,6 +166,34 @@ getUser(condition:boolean){
       sessionStorage.removeItem('currentPreferences');
     }
     window.location.href = "/main";
+  }
+
+  changeOfSession(condition: boolean){
+    if(condition){
+      localStorage.setItem('CurrentUser', sessionStorage.getItem('CurrentUser'));
+      localStorage.setItem('profileImage', sessionStorage.getItem('profileImage'));
+      localStorage.setItem('token', sessionStorage.getItem('token'));
+      localStorage.setItem('currentMail', sessionStorage.getItem('currentMail'));
+      localStorage.setItem('currentPreferences', sessionStorage.getItem('currentPreferences'));
+
+      sessionStorage.removeItem('CurrentUser');
+      sessionStorage.removeItem('profileImage');
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('currentMail');
+      sessionStorage.removeItem('currentPreferences');
+    }else{
+      sessionStorage.setItem('CurrentUser', localStorage.getItem('CurrentUser'));
+      sessionStorage.setItem('profileImage', localStorage.getItem('profileImage'));
+      sessionStorage.setItem('token', localStorage.getItem('token'));
+      sessionStorage.setItem('currentMail', localStorage.getItem('currentMail'));
+      sessionStorage.setItem('currentPreferences', localStorage.getItem('currentPreferences'));
+
+      localStorage.removeItem('CurrentUser');
+      localStorage.removeItem('profileImage');
+      localStorage.removeItem('token');
+      localStorage.removeItem('currentMail');
+      localStorage.removeItem('currentPreferences');
+    }
   }
   
 

@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { GeneralValitationService } from 'src/app/services/general-valitation.service';
 import { SetupService } from 'src/app/services/setup/setup.service';
 import { CategoryService } from 'src/app/services/added/category.service';
+import { isUndefined } from 'util';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
     PUBLICNAME: '',
     URLPROFILEPICTURE: 'no-profile',
     ACTIVEPROFILE: 0,
-    PREFERENCESTRING: ''
+    PREFERENCESTRING: 'no-references'
   }
 
   data: any ={
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
     private auth: AuthenticationServiceService,
     private valitate: GeneralValitationService, 
     private setup: SetupService,
-    private preferences: CategoryService
+    private generalValidation: GeneralValitationService
     ) { }
 
   ngOnInit() {
@@ -105,23 +106,21 @@ export class LoginComponent implements OnInit {
             this.auth.showUser(this.data.user).subscribe(
               (res)=>{
                 this.user = res;
-                console.log(this.user);
-                this.setup.getSessionOrLocalStoragesLoginUser(this.setup.getCondition(),this.user.URLPROFILEPICTURE,this.user.EMAIL, this.user.PREFERENCESTRING);
+                this.setup.getSessionOrLocalStoragesLoginUser(this.setup.getCondition(),this.user.URLPROFILEPICTURE,this.user.EMAIL);
+                console.log(this.user)
+                console.log(this.user.PREFERENCESTRING);
+                if(this.user.PREFERENCESTRING == null){
+                  
+                }else{
+                  this.setup.setCurrentPreferences(this.setup.getCondition(), this.user.PREFERENCESTRING);
+                }
+                
               },(err) =>{
-                this.auth.showUserAlone(this.data.user).subscribe(
-                  (res)=>{
-                    this.user = res;
-                    console.log(this.user);
-                    this.setup.getSessionOrLocalStoragesLoginUser(this.setup.getCondition(),this.user.URLPROFILEPICTURE,this.user.EMAIL, '');
-                  },(err) =>{
-                    console.log(err)
-                  }
-                );
+                console.log("FATAL ERROR ON THE SERVER");
               }
             );
             
             window.location.href = "/main";
-            console.log(this.auth.isLoggedIn);
           }else{
             this.showMessage('Ocurrió un error en la autentificación de tus datos, verifica que la contraseña o el usuario que ingresaste coincidan con los que tenemos registrados')
           }

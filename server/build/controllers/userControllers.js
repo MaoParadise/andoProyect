@@ -31,6 +31,12 @@ class UserController {
             if (category.length > 0) {
                 return res.json(category[0]);
             }
+            else {
+                const category = yield database_1.default.query(`SELECT user.EMAIL,user.USER,user.PUBLICNAME,user.URLPROFILEPICTURE,user.ACTIVEPROFILE FROM user WHERE user.EMAIL = '${id}' OR user.USER = '${id}'`);
+                if (category.length > 0) {
+                    return res.json(category[0]);
+                }
+            }
             res.status(404).json({ text: "The User doesn't exits", boolean: false });
         });
     }

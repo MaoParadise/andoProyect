@@ -36,10 +36,10 @@ export class ProfileComponent implements OnInit {
   }
 
   confirmUser(){
-
     const params = this.activatedRoute.snapshot.params;
+    console.log(params.id);
     if (params.id) {
-      this.auth.showUser(params.id)
+      this.auth.showUserAlone(params.id)
       .subscribe((res)=>{
         this.user = res;
       },
