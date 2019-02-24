@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     22-02-2019 18:07:15                          */
+/* Created on:     24-02-2019 1:47:37                           */
 /*==============================================================*/
 
 
@@ -31,6 +31,8 @@ drop table if exists SUPERUSER;
 drop table if exists TYPE;
 
 drop table if exists UPLOAD;
+
+drop table if exists UPLOADREFERENCE;
 
 drop table if exists USER;
 
@@ -218,6 +220,18 @@ create table UPLOAD
 );
 
 /*==============================================================*/
+/* Table: UPLOADREFERENCE                                       */
+/*==============================================================*/
+create table UPLOADREFERENCE
+(
+   IDMEDIA              int not null,
+   EMAIL                varchar(125) not null,
+   NUMBEREPISODE        varchar(4) not null,
+   PREFERENCEUPLOAD     varchar(650),
+   primary key (IDMEDIA, EMAIL, NUMBEREPISODE)
+);
+
+/*==============================================================*/
 /* Table: USER                                                  */
 /*==============================================================*/
 create table USER
@@ -284,4 +298,7 @@ alter table UPLOAD add constraint FK_MEDIAUPLOAD foreign key (IDMEDIA)
 
 alter table UPLOAD add constraint FK_USERUPLOAD foreign key (EMAIL)
       references USER (EMAIL) on delete restrict on update restrict;
+
+alter table UPLOADREFERENCE add constraint FK_UPLOADUPLOADREFERENCES foreign key (IDMEDIA, EMAIL, NUMBEREPISODE)
+      references UPLOAD (IDMEDIA, EMAIL, NUMBEREPISODE) on delete restrict on update restrict;
 
