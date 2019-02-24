@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     24-02-2019 1:47:37                           */
+/* Created on:     24-02-2019 2:38:23                           */
 /*==============================================================*/
 
 
@@ -22,6 +22,8 @@ drop table if exists PREFERENCE;
 
 drop table if exists RANKING;
 
+drop table if exists REFERENCEUPLOAD;
+
 drop table if exists RELATIONSHIP;
 
 drop table if exists STATEMEDIA;
@@ -32,8 +34,6 @@ drop table if exists TYPE;
 
 drop table if exists UPLOAD;
 
-drop table if exists UPLOADREFERENCE;
-
 drop table if exists USER;
 
 /*==============================================================*/
@@ -41,7 +41,7 @@ drop table if exists USER;
 /*==============================================================*/
 create table CATEGORY
 (
-   IDCATEGORY           int not null auto_increment,
+   IDCATEGORY           int not null,
    NAMECATEGORY         varchar(225),
    DESCRIPTIONCATEGORY  varchar(225),
    INSERTMETHOD         varchar(50),
@@ -64,7 +64,7 @@ create table CATEGORYMEDIA
 /*==============================================================*/
 create table CLASIFICATION
 (
-   IDCLASIFICATION      int not null auto_increment,
+   IDCLASIFICATION      int not null,
    NAMECLASIFICATION    varchar(50),
    DESCRIPTIONCLASIFICATION varchar(225),
    CLASIFICATION        varchar(50),
@@ -76,7 +76,7 @@ create table CLASIFICATION
 /*==============================================================*/
 create table EMBEDFRAME
 (
-   IDFRAME              int not null auto_increment,
+   IDFRAME              int not null,
    IDMEDIA              int,
    EMAIL                varchar(125),
    NUMBEREPISODE        varchar(4),
@@ -104,7 +104,7 @@ create table GENERALMETRIC
 /*==============================================================*/
 create table MEDIA
 (
-   IDMEDIA              int not null auto_increment,
+   IDMEDIA              int not null,
    IDCLASIFICATION      int not null,
    IDSTATEMEDIA         int not null,
    IDTYPE               int not null,
@@ -160,11 +160,23 @@ create table RANKING
 );
 
 /*==============================================================*/
+/* Table: REFERENCEUPLOAD                                       */
+/*==============================================================*/
+create table REFERENCEUPLOAD
+(
+   IDMEDIAREF           int not null,
+   EMAILREF             varchar(125) not null,
+   NUMBEREPISODEREF     varchar(4) not null,
+   REFERENCEUPLOADSTRING varchar(650),
+   primary key (IDMEDIAREF, EMAILREF, NUMBEREPISODEREF)
+);
+
+/*==============================================================*/
 /* Table: RELATIONSHIP                                          */
 /*==============================================================*/
 create table RELATIONSHIP
 (
-   IDRELATIONSHIP       int not null auto_increment,
+   IDRELATIONSHIP       int not null,
    IDMEDIA              int,
    EMAIL                varchar(125),
    NUMBEREPISODE        varchar(4),
@@ -177,7 +189,7 @@ create table RELATIONSHIP
 /*==============================================================*/
 create table STATEMEDIA
 (
-   IDSTATEMEDIA         int not null auto_increment,
+   IDSTATEMEDIA         int not null,
    NAMESTATE            varchar(50),
    primary key (IDSTATEMEDIA)
 );
@@ -216,18 +228,6 @@ create table UPLOAD
    DATEUPLOAD           timestamp,
    UPDATEUPLOAD         timestamp,
    STATEUPLOAD          bool,
-   primary key (IDMEDIA, EMAIL, NUMBEREPISODE)
-);
-
-/*==============================================================*/
-/* Table: UPLOADREFERENCE                                       */
-/*==============================================================*/
-create table UPLOADREFERENCE
-(
-   IDMEDIA              int not null,
-   EMAIL                varchar(125) not null,
-   NUMBEREPISODE        varchar(4) not null,
-   PREFERENCEUPLOAD     varchar(650),
    primary key (IDMEDIA, EMAIL, NUMBEREPISODE)
 );
 
@@ -284,6 +284,9 @@ alter table RANKING add constraint FK_MEDIARANKING foreign key (IDMEDIA)
 alter table RANKING add constraint FK_USERRANKING foreign key (EMAIL)
       references USER (EMAIL) on delete restrict on update restrict;
 
+alter table REFERENCEUPLOAD add constraint FK_MEDIAREFERECES foreign key (IDMEDIAREF, EMAILREF, NUMBEREPISODEREF)
+      references UPLOAD (IDMEDIA, EMAIL, NUMBEREPISODE) on delete restrict on update restrict;
+
 alter table RELATIONSHIP add constraint FK_MEDIARELATIONSHIP foreign key (MED_IDMEDIA)
       references MEDIA (IDMEDIA) on delete restrict on update restrict;
 
@@ -298,7 +301,4 @@ alter table UPLOAD add constraint FK_MEDIAUPLOAD foreign key (IDMEDIA)
 
 alter table UPLOAD add constraint FK_USERUPLOAD foreign key (EMAIL)
       references USER (EMAIL) on delete restrict on update restrict;
-
-alter table UPLOADREFERENCE add constraint FK_UPLOADUPLOADREFERENCES foreign key (IDMEDIA, EMAIL, NUMBEREPISODE)
-      references UPLOAD (IDMEDIA, EMAIL, NUMBEREPISODE) on delete restrict on update restrict;
 
