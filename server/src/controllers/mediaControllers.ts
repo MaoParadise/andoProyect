@@ -70,7 +70,9 @@ class MediaController{
         const numberEpisode = req.body.numberEpisode;
         const embedFrame = req.body.embedFrame;
         const quality = req.body.quality;
-
+        console.log(`INSERT INTO embedframe
+        VALUES (NULL, '${id}', '${email}', '${numberEpisode}',
+        '${embedFrame}', NULL, '${quality}', '1')`);
         await pool.query(`INSERT INTO embedframe
                         VALUES (NULL, '${id}', '${email}', '${numberEpisode}',
                         '${embedFrame}', NULL, '${quality}', '1')`,(error: Error)=>{

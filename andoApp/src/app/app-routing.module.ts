@@ -13,6 +13,7 @@ import { AuthGuard } from './guards/auth.guard'
 import { NotFoundComponent } from './not-found/not-found.component';
 import { MediaLibraryComponent } from './components/profile/media-library/media-library.component';
 import { ConfigurationsComponent } from './components/profile/configurations/configurations.component';
+import { CookietestComponent } from './components/testing/cookietest/cookietest.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,10 @@ const routes: Routes = [
     path: 'settings',
     component: ConfigurationsComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'test',
+    component: CookietestComponent
   },
   {
     path: 'not-found',

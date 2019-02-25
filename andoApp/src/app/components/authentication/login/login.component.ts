@@ -107,8 +107,6 @@ export class LoginComponent implements OnInit {
               (res)=>{
                 this.user = res;
                 this.setup.getSessionOrLocalStoragesLoginUser(this.setup.getCondition(),this.user.URLPROFILEPICTURE,this.user.EMAIL);
-                console.log(this.user)
-                console.log(this.user.PREFERENCESTRING);
                 if(this.user.PREFERENCESTRING == null){
                   
                 }else{

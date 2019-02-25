@@ -46,15 +46,18 @@ export class MediaModalComponent implements OnInit {
     if(this.rawFrameEmbed == '' || this.selectedQuality == ''){
       this.markError = true;
     }else{
+      console.log(this.header.id, this.header.email, this.header.numberEpisode, this.rawFrameEmbed, this.selectedQuality);
       this.mediaS.saveUploadEmbed(this.header.id, this.header.email, this.header.numberEpisode, this.rawFrameEmbed, this.selectedQuality)
       .subscribe(
         res => {
+          console.log(res);
           this.onPreMedia(this.header.id, this.header.email, this.header.numberEpisode);
           this.mediaS.addEmbed = false;
           this.rawFrameEmbed = '';
           this.markError = false;
         },
         err => {
+          console.log(err);
           this.mediaS.noFrameAvailables();
         }
       );

@@ -4,6 +4,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { MediaService } from 'src/app/services/media.service';
 import { Media } from 'src/app/models/Media';
 import { SetupService } from 'src/app/services/setup/setup.service';
+import { LibraryService } from 'src/app/services/library/library.service';
 
 
 @Component({
@@ -65,7 +66,8 @@ export class MediaLibraryComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer, 
     private mediaS: MediaService,
-    private setup: SetupService 
+    private setup: SetupService,
+    private libraryS: LibraryService, 
     ) { 
 
   }
@@ -243,7 +245,8 @@ export class MediaLibraryComponent implements OnInit {
       .subscribe(
         res => {
           this.dataLibrary = res;
-          this.length = this.dataLibrary.length
+          this.length = this.dataLibrary.length;
+
         },
         err => console.error(err)
       );
@@ -339,12 +342,31 @@ export class MediaLibraryComponent implements OnInit {
         this.mediaS.addEmbed = false;
         this.mediaS.frameActive = 0;
         this.mediaS.updateEmbed = true;
-        console.log(this.mediaS.dataEmbed);
       },
       err => {
         this.mediaS.noFrameAvailables();
       } 
     );
+  }
+
+  onPreMediaInfo(dataLibrary: any, index: number){
+    this.libraryS.restartInformationModalVariables();
+    this.mediaS.dataLibrary = dataLibrary;
+    this.mediaS.index = index;
+    this.libraryS.getUploadReferences(
+      this.mediaS.dataLibrary[this.mediaS.index].IDMEDIA,
+      this.mediaS.dataLibrary[this.mediaS.index].EMAIL,
+    ).subscribe(
+      res => {
+        this.libraryS.dataReference = res;
+        this.libraryS.dataReferenceString = this.libraryS.dataReference.REFERENCEUPLOADSTRING;
+        this.libraryS.addPushData();
+      },
+      err => {
+        this.libraryS.dataReferenceString = 'no-references';
+      }
+    );
+    this.restartLibrary();
   }
 
 }

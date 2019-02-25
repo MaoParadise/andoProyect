@@ -42,7 +42,7 @@ export class MediaService {
     });
   }
 
-  saveUploadEmbed(id: Media, mail:string, numberEpisode: number, embedFrame: string, quality: string){
+  saveUploadEmbed(id: number, mail:string, numberEpisode: number, embedFrame: string, quality: string){
     return this.http.post(`${this.API_URI}/media/uploadEmbed`, {
       id: id,
       email : mail,

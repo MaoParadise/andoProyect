@@ -199,16 +199,16 @@ export class ConfigurationsComponent implements OnInit {
     }else{
       console.log("ERROR: preferencias superan las 30 unidades");
     }
-    
-    console.log(this.config.sessionProfile);
     if(this.config.sessionProfile){
       if(!(this.setup.getCondition())){
         this.setup.setCondition(true);
         this.setup.changeOfSession(this.setup.getCondition());
       }
-    }else{
+    }else if(this.config.searchProfile == false){
+      if(this.setup.getCondition()){
         this.setup.setCondition(false);
         this.setup.changeOfSession(this.setup.getCondition());
+      }
     }
 
   }

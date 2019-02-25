@@ -13,7 +13,8 @@
         <div *ngFor="let library of dataLibrary | paginate: { itemsPerPage: 9, currentPage: actualPage }; let i=index" class="col-sm-4">
           <div class="cardHover">
               <div class="icons">
-                  <i class="fas fa-cogs" title="editar información"></i> | <i  data-toggle="modal" data-target="#modalEMP" (click)="onPreMedia(dataLibrary, i)" class="fas fa-edit" title="editar video"></i>
+                  <i  data-toggle="modal" data-target="#modalINF"  (click)="onPreMediaInfo(dataLibrary, dataLibrary.indexOf(library))"  class="fas fa-cogs" title="editar información"></i> | 
+                  <i  data-toggle="modal" data-target="#modalEMP"  (click)="onPreMedia(dataLibrary, dataLibrary.indexOf(library))" class="fas fa-edit" title="editar video"></i>
               </div>
               <div class="card">
                   <img class="card-img-top" src="{{library.MINIATURE}}" alt="Card image cap">
@@ -166,4 +167,9 @@
       <app-media-modal></app-media-modal>
    </div>
  </div>
+ <div class="row">
+    <div class="col-md-12">
+       <app-information-modal></app-information-modal>
+    </div>
+  </div>
 </div>

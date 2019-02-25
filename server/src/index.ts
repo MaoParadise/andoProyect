@@ -22,6 +22,7 @@ import categoryRoutes from './routes/categoryRoutes';
 import stateMediaRoutes from './routes/stateMediaRoutes';
 import userRoutes from './routes/userRoutes';
 import mediaRoutes from './routes/mediaRoutes';
+import referenceRoutes from './routes/referenceRoutes';
 
 //test
 import sessionRoutes from './routes/sessionRoute';
@@ -70,6 +71,7 @@ class Server {
         this.app.use('/',indexRoutes);
         this.app.use('/api/types',typeRoutes);
         this.app.use('/api/categorys',categoryRoutes);
+        this.app.use('/api/reference',referenceRoutes);
         this.app.use('/api/stateMedia',stateMediaRoutes);
         this.app.use('/api/users',userRoutes);
         this.app.use('/api/session',sessionRoutes);

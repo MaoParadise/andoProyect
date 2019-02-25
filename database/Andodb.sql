@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     24-02-2019 2:38:23                           */
+/* Created on:     24-02-2019 22:15:29                          */
 /*==============================================================*/
 
 
@@ -76,7 +76,7 @@ create table CLASIFICATION
 /*==============================================================*/
 create table EMBEDFRAME
 (
-   IDFRAME              int not null,
+   IDFRAME              int not null auto_increment,
    IDMEDIA              int,
    EMAIL                varchar(125),
    NUMBEREPISODE        varchar(4),
@@ -104,7 +104,7 @@ create table GENERALMETRIC
 /*==============================================================*/
 create table MEDIA
 (
-   IDMEDIA              int not null,
+   IDMEDIA              int not null auto_increment,
    IDCLASIFICATION      int not null,
    IDSTATEMEDIA         int not null,
    IDTYPE               int not null,
@@ -164,11 +164,10 @@ create table RANKING
 /*==============================================================*/
 create table REFERENCEUPLOAD
 (
-   IDMEDIAREF           int not null,
-   EMAILREF             varchar(125) not null,
-   NUMBEREPISODEREF     varchar(4) not null,
+   IDMEDIA              int not null,
+   EMAIL                varchar(125) not null,
    REFERENCEUPLOADSTRING varchar(650),
-   primary key (IDMEDIAREF, EMAILREF, NUMBEREPISODEREF)
+   primary key (IDMEDIA, EMAIL)
 );
 
 /*==============================================================*/
@@ -284,8 +283,11 @@ alter table RANKING add constraint FK_MEDIARANKING foreign key (IDMEDIA)
 alter table RANKING add constraint FK_USERRANKING foreign key (EMAIL)
       references USER (EMAIL) on delete restrict on update restrict;
 
-alter table REFERENCEUPLOAD add constraint FK_MEDIAREFERECES foreign key (IDMEDIAREF, EMAILREF, NUMBEREPISODEREF)
-      references UPLOAD (IDMEDIA, EMAIL, NUMBEREPISODE) on delete restrict on update restrict;
+alter table REFERENCEUPLOAD add constraint FK_MEDIAREFERENCEUPLOAD foreign key (IDMEDIA)
+      references MEDIA (IDMEDIA) on delete restrict on update restrict;
+
+alter table REFERENCEUPLOAD add constraint FK_USERREFERENCEUPLOAD foreign key (EMAIL)
+      references USER (EMAIL) on delete restrict on update restrict;
 
 alter table RELATIONSHIP add constraint FK_MEDIARELATIONSHIP foreign key (MED_IDMEDIA)
       references MEDIA (IDMEDIA) on delete restrict on update restrict;

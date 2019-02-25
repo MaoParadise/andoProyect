@@ -22,6 +22,7 @@ const categoryRoutes_1 = __importDefault(require("./routes/categoryRoutes"));
 const stateMediaRoutes_1 = __importDefault(require("./routes/stateMediaRoutes"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const mediaRoutes_1 = __importDefault(require("./routes/mediaRoutes"));
+const referenceRoutes_1 = __importDefault(require("./routes/referenceRoutes"));
 //test
 const sessionRoute_1 = __importDefault(require("./routes/sessionRoute"));
 class Server {
@@ -57,6 +58,7 @@ class Server {
         this.app.use('/', indexRoutes_1.default);
         this.app.use('/api/types', typeRoutes_1.default);
         this.app.use('/api/categorys', categoryRoutes_1.default);
+        this.app.use('/api/reference', referenceRoutes_1.default);
         this.app.use('/api/stateMedia', stateMediaRoutes_1.default);
         this.app.use('/api/users', userRoutes_1.default);
         this.app.use('/api/session', sessionRoute_1.default);

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/User';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,9 @@ export class SetupService {
 
   API_URI: string = 'http://localhost:3000/api';
 
-  constructor() { }
+  constructor(
+    private cookieMaker: CookieService
+  ) { }
 
   // this is the condition with you can set the value of the sessions variables, between LocalStorage and SessionStorage
   createCondition(){
@@ -32,8 +35,8 @@ export class SetupService {
         localStorage.setItem('token', token);
         localStorage.setItem('CurrentUser', user);
     }else{
-        sessionStorage.setItem('token', token);
-        sessionStorage.setItem('CurrentUser', user);
+        this.cookieMaker.set('token', token);
+        this.cookieMaker.set('CurrentUser', user);
     }
 
   }
@@ -44,9 +47,9 @@ export class SetupService {
         localStorage.setItem('currentMail', email);
         localStorage.setItem('currentPreferences', 'no-references');
     }else{
-        sessionStorage.setItem('profileImage', profileImage);
-        sessionStorage.setItem('currentMail', email);
-        sessionStorage.setItem('currentPreferences', 'no-references');
+        this.cookieMaker.set('profileImage', profileImage);
+        this.cookieMaker.set('currentMail', email);
+        this.cookieMaker.set('currentPreferences', 'no-references');
     }
   }
   
@@ -62,11 +65,11 @@ export class SetupService {
         localStorage.setItem('profileImage','no-profile'); 
         localStorage.setItem('currentPreferences', 'no-references');
     }else{
-        sessionStorage.setItem('token', token);
-        sessionStorage.setItem('CurrentUser', user);
-        sessionStorage.setItem('currentMail', email);
-        sessionStorage.setItem('profileImage','no-profile'); 
-        sessionStorage.setItem('currentPreferences', 'no-references');
+        this.cookieMaker.set('token', token);
+        this.cookieMaker.set('CurrentUser', user);
+        this.cookieMaker.set('currentMail', email);
+        this.cookieMaker.set('profileImage','no-profile'); 
+        this.cookieMaker.set('currentPreferences', 'no-references');
     }
   }
 //-------------------------------------------------------------------------------------------------
@@ -74,7 +77,7 @@ setCurrentPreferences(condition:boolean, preferences: string){
   if(condition){
     localStorage.setItem('currentPreferences', preferences); 
   }else{
-    sessionStorage.setItem('currentPreferences', preferences); 
+    this.cookieMaker.set('currentPreferences', preferences); 
   }
 }
 
@@ -93,7 +96,15 @@ getSessionOrLocalProfileImage(condition: boolean, profileImage: string){
   if(condition){
       localStorage.setItem('profileImage', profileImage); 
   }else{
-      sessionStorage.setItem('profileImage', profileImage); 
+      this.cookieMaker.set('profileImage', profileImage); 
+  }
+}
+
+getToken(condition: boolean){
+  if(condition){
+    return localStorage.getItem('token');
+  }else{
+    return this.cookieMaker.get('token');
   }
 }
 
@@ -101,7 +112,7 @@ getCurrentPreferences(condition:boolean){
   if(condition){
     return localStorage.getItem('currentPreferences');
   }else{
-    return sessionStorage.getItem('currentPreferences');
+    return this.cookieMaker.get('currentPreferences');
   }
 }
 
@@ -110,7 +121,7 @@ getUser(condition:boolean){
     if(condition){
       return localStorage.getItem('CurrentUser');
     }else{
-      return sessionStorage.getItem('CurrentUser');
+      return this.cookieMaker.get('CurrentUser');
     }
   }
 
@@ -118,7 +129,7 @@ getUser(condition:boolean){
     if(condition){
       return localStorage.getItem('currentMail');
     }else{
-      return sessionStorage.getItem('currentMail');
+      return this.cookieMaker.get('currentMail');
     }
   }
 
@@ -126,7 +137,7 @@ getUser(condition:boolean){
     if(condition){
       return localStorage.getItem('profileImage');
     }else{
-      return sessionStorage.getItem('profileImage');
+      return this.cookieMaker.get('profileImage');
     }
   }
 
@@ -159,34 +170,34 @@ getUser(condition:boolean){
       localStorage.removeItem('currentMail');
       localStorage.removeItem('currentPreferences');
     }else{
-      sessionStorage.removeItem('CurrentUser');
-      sessionStorage.removeItem('profileImage');
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('currentMail');
-      sessionStorage.removeItem('currentPreferences');
+      this.cookieMaker.delete('CurrentUser');
+      this.cookieMaker.delete('profileImage');
+      this.cookieMaker.delete('token');
+      this.cookieMaker.delete('currentMail');
+      this.cookieMaker.delete('currentPreferences');
     }
     window.location.href = "/main";
   }
 
   changeOfSession(condition: boolean){
     if(condition){
-      localStorage.setItem('CurrentUser', sessionStorage.getItem('CurrentUser'));
-      localStorage.setItem('profileImage', sessionStorage.getItem('profileImage'));
-      localStorage.setItem('token', sessionStorage.getItem('token'));
-      localStorage.setItem('currentMail', sessionStorage.getItem('currentMail'));
-      localStorage.setItem('currentPreferences', sessionStorage.getItem('currentPreferences'));
+      localStorage.setItem('CurrentUser', this.cookieMaker.get('CurrentUser'));
+      localStorage.setItem('profileImage', this.cookieMaker.get('profileImage'));
+      localStorage.setItem('token', this.cookieMaker.get('token'));
+      localStorage.setItem('currentMail', this.cookieMaker.get('currentMail'));
+      localStorage.setItem('currentPreferences', this.cookieMaker.get('currentPreferences'));
 
-      sessionStorage.removeItem('CurrentUser');
-      sessionStorage.removeItem('profileImage');
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('currentMail');
-      sessionStorage.removeItem('currentPreferences');
+      this.cookieMaker.delete('CurrentUser');
+      this.cookieMaker.delete('profileImage');
+      this.cookieMaker.delete('token');
+      this.cookieMaker.delete('currentMail');
+      this.cookieMaker.delete('currentPreferences');
     }else{
-      sessionStorage.setItem('CurrentUser', localStorage.getItem('CurrentUser'));
-      sessionStorage.setItem('profileImage', localStorage.getItem('profileImage'));
-      sessionStorage.setItem('token', localStorage.getItem('token'));
-      sessionStorage.setItem('currentMail', localStorage.getItem('currentMail'));
-      sessionStorage.setItem('currentPreferences', localStorage.getItem('currentPreferences'));
+      this.cookieMaker.set('CurrentUser', localStorage.getItem('CurrentUser'));
+      this.cookieMaker.set('profileImage', localStorage.getItem('profileImage'));
+      this.cookieMaker.set('token', localStorage.getItem('token'));
+      this.cookieMaker.set('currentMail', localStorage.getItem('currentMail'));
+      this.cookieMaker.set('currentPreferences', localStorage.getItem('currentPreferences'));
 
       localStorage.removeItem('CurrentUser');
       localStorage.removeItem('profileImage');

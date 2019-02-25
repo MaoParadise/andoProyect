@@ -18,6 +18,8 @@ import { LoginComponent } from './components/authentication/login/login.componen
 import { AuthMessageComponent } from './components/authentication/auth-message/auth-message.component';
 import { AuthenticationServiceService } from './services/authentication/authentication-service.service';
 import { MediaLibraryComponent } from './components/profile/media-library/media-library.component';
+import { ConfigurationsComponent } from './components/profile/configurations/configurations.component';
+
 
 // imports of interceptors
 import { TokenInterceptorService } from './services/token/token-interceptor.service';
@@ -27,7 +29,12 @@ import { NotFoundComponent } from './not-found/not-found.component';
 //External
 import {NgxPaginationModule} from 'ngx-pagination';
 import { MediaModalComponent } from './components/profile/media-modal/media-modal.component';
-import { ConfigurationsComponent } from './components/profile/configurations/configurations.component';
+import { CookieService } from 'ngx-cookie-service';
+
+// Testings components 
+import { CookietestComponent } from './components/testing/cookietest/cookietest.component';
+import { InformationModalComponent } from './components/profile/information-modal/information-modal.component';
+
 
 
 @NgModule({
@@ -45,7 +52,9 @@ import { ConfigurationsComponent } from './components/profile/configurations/con
     NotFoundComponent,
     MediaLibraryComponent,
     MediaModalComponent,
-    ConfigurationsComponent
+    ConfigurationsComponent,
+    CookietestComponent,
+    InformationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +69,7 @@ import { ConfigurationsComponent } from './components/profile/configurations/con
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
     multi: true
-    }],
-  bootstrap: [AppComponent]
+    }, CookieService],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

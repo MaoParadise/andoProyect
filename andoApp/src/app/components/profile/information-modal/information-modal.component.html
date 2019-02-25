@@ -1,0 +1,50 @@
+<div id="modalINF" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <h5>Información</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <i class="fas fa-ban"></i>  
+          </button>
+          <div *ngFor="let library of this.mediaS.dataLibrary; let i=index" >
+            <table *ngIf="i == this.mediaS.index" class="table">
+              <tr>
+                <th><span>Titulo: </span></th><th>{{library.TITLE}}</th>
+              </tr>
+              <tr>
+                <th><span>Episodio:</span></th><th>{{library.NUMBEREPISODE}}</th>
+              </tr>
+              <tr>
+                <th><span>Estado:</span></th><th *ngIf="library.STATEUPLOAD == 1">ACTIVO</th>
+                                             <th *ngIf="library.STATEUPLOAD != 1">INACTIVO</th>
+              </tr>
+              <tr>
+                <th><span>Puntaje: </span></th><th>xxx puntos</th>
+              </tr>
+            </table>
+
+          </div>
+          <form>
+            <div class="input-group">
+              <input [(ngModel)]="this.libraryS.localDataReferenceString" class="form-control" type="text" name="preferences">
+              <button class="btn btn-warning" (click)="addNoneData(this.generalValidation.processRepeatSimple(this.generalValidation.separateAndReplaceAndMinus(this.libraryS.localDataReferenceString)))"> Agregar </button>
+            </div>
+            <br>
+            <h4> TAGS </h4>
+            <div class="row">
+              <div *ngFor="let Reference of this.libraryS.dataPush; let i=index" class="col-xs-2">
+                <button class="btn option" value="Reference">{{ Reference.NAMEREFERENCE }} </button><i (click)="deleteDataPush(i)" class="delete fas fa-times-circle"></i>
+              </div>
+              <div *ngFor="let newReference of this.libraryS.NonedataPush; let j=index" class="col-xs-2">
+                <button class="btn optionNew" value="newReference">{{ newReference.NAMEREFERENCE }} </button><i (click)="deleteNoneData(j)" class="delete fas fa-times-circle"></i>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="saveReferences()">Guardar cambios</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>

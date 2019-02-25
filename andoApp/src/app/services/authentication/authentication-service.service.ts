@@ -28,9 +28,9 @@ export class AuthenticationServiceService {
 
   get isLoggedIn(){
     if(this.setup.getCondition()){
-      return !!localStorage.getItem('token');
+      return !!this.setup.getToken(this.setup.getCondition());
     }else{
-      return !!sessionStorage.getItem('token');
+      return !!this.setup.getToken(this.setup.getCondition());
     }
   }
 
@@ -76,12 +76,7 @@ export class AuthenticationServiceService {
   }
 
   getToken(condition: boolean){
-    if(condition){
-      return localStorage.getItem('token');
-    }else{
-      return sessionStorage.getItem('token');
-    }
-    
+    return this.setup.getToken(condition);
   }
 
 
