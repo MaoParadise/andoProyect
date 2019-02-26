@@ -4,12 +4,19 @@
    <div class="col-sm-12">
      <br>
       <div class="title"> Videos  
-      <button (click)="showMediaForm()" class="btn btn-warning btn-upload"> subir <i class="fas fa-cloud-upload-alt"></i> </button> 
       </div> 
       <hr>
-   </div>
+   </div> 
    <div class="col-sm-9">
+     <div class="row">
+        <div class="col-sm-12 baralign">
+          <button (click)="getChapterModel()" data-toggle="modal" data-target="#modalADD" class="btn btn-warning btn-upload"> subir <i class="fas fa-cloud-upload-alt"></i> </button>
+          <button (click)="this.getLibrary()" class="btn btn-warning btn-upload"> Actualizar librería <i class="fas fa-sync-alt"></i> </button> 
+        </div>
+     </div>
+     <br>
       <div class="row library">
+        
         <div *ngFor="let library of dataLibrary | paginate: { itemsPerPage: 9, currentPage: actualPage }; let i=index" class="col-sm-4">
           <div class="cardHover">
               <div class="icons">
@@ -41,7 +48,6 @@
 
           <pagination-controls 
           [previousLabel]="labels.previousLabel"
-          [responsive]="responsive"
           [nextLabel]="labels.nextLabel"
           (pageChange)="actualPage = $event">
         </pagination-controls> 
@@ -170,6 +176,11 @@
  <div class="row">
     <div class="col-md-12">
        <app-information-modal></app-information-modal>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+       <app-add-modal></app-add-modal>
     </div>
   </div>
 </div>

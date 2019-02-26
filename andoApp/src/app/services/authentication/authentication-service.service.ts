@@ -11,7 +11,7 @@ import { SetupService } from '../setup/setup.service';
 })
 export class AuthenticationServiceService {
 
-  API_URI = 'http://localhost:3000/api';
+  API_URI = this.setup.API_URI;
   loggedInStatus = false;
   public userLoggedMail: string;
   public userLoggedName: string;
@@ -67,12 +67,12 @@ export class AuthenticationServiceService {
   }
 
   showUser(username: string){
-    return this.http.get(`http://localhost:3000/api/users/${username}`);
+    return this.http.get(`${this.API_URI}/users/${username}`);
   }
 
 
   showUserAlone(username: string){
-    return this.http.get(`http://localhost:3000/api/users/alone/${username}`);
+    return this.http.get(`${this.API_URI}/users/alone/${username}`);
   }
 
   getToken(condition: boolean){

@@ -32,7 +32,7 @@ export class MediaModalComponent implements OnInit {
   markError: boolean = false;
 
   constructor(
-    private mediaS : MediaService,
+    public mediaS : MediaService,
     private sanitizer: DomSanitizer
     ) { }
 

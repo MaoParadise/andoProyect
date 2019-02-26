@@ -32,12 +32,11 @@ export class MediaService {
 
   }
 
-  saveUpload(mail:string, media: Media, numberEpisode: number, embedFrame: string, quality: string){
+  saveUpload(mail:string, media: Media, numberEpisode: number, quality: string){
     return this.http.post(`${this.API_URI}/media/upload`, {
       email : mail,
       media : media,
       episode : numberEpisode,
-      embedFrame : embedFrame,
       quality: quality
     });
   }

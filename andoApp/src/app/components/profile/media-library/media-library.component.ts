@@ -5,6 +5,7 @@ import { MediaService } from 'src/app/services/media.service';
 import { Media } from 'src/app/models/Media';
 import { SetupService } from 'src/app/services/setup/setup.service';
 import { LibraryService } from 'src/app/services/library/library.service';
+import { LibraryAddedService } from 'src/app/services/library/library-added.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class MediaLibraryComponent implements OnInit {
   frameEmbed: SafeHtml;
   numberEpisode = 0;
   
-  private _media: Media = {
+  _media: Media = {
     IDMEDIA: 0,
     TITLE: '',
     DESCRIPTION: '',
@@ -65,9 +66,10 @@ export class MediaLibraryComponent implements OnInit {
 
   constructor(
     private sanitizer: DomSanitizer, 
-    private mediaS: MediaService,
-    private setup: SetupService,
-    private libraryS: LibraryService, 
+    public mediaS: MediaService,
+    public setup: SetupService,
+    public libraryS: LibraryService, 
+    public libraryAdded: LibraryAddedService
     ) { 
 
   }
@@ -315,7 +317,6 @@ export class MediaLibraryComponent implements OnInit {
         this.setup.getMail(this.setup.getCondition()),
         this._media,
         this.numberEpisode,
-        this.rawFrameEmbed,
         this.selectedQuality).subscribe(
         (res)=>{
            this.dataBind = res;
@@ -367,6 +368,18 @@ export class MediaLibraryComponent implements OnInit {
       }
     );
     this.restartLibrary();
+  }
+
+  onPreAddChapter(){
+    this.libraryAdded.restarInformation();
+  }
+
+  getChapterModel(){
+    this.onPreAddChapter();
+    document.getElementById("step2").classList.remove('active');
+    document.getElementById("step2").classList.remove('active');
+    document.querySelector('.alert-danger').setAttribute('style',`display: none`);
+    document.querySelector('.alert-success').setAttribute('style',`display: none`);
   }
 
 }

@@ -30,10 +30,12 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { MediaModalComponent } from './components/profile/media-modal/media-modal.component';
 import { CookieService } from 'ngx-cookie-service';
+import { ClickOutsideModule } from 'ng4-click-outside';
 
 // Testings components 
 import { CookietestComponent } from './components/testing/cookietest/cookietest.component';
 import { InformationModalComponent } from './components/profile/information-modal/information-modal.component';
+import { AddModalComponent } from './components/profile/add-modal/add-modal.component';
 
 
 
@@ -54,7 +56,8 @@ import { InformationModalComponent } from './components/profile/information-moda
     MediaModalComponent,
     ConfigurationsComponent,
     CookietestComponent,
-    InformationModalComponent
+    InformationModalComponent,
+    AddModalComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +65,8 @@ import { InformationModalComponent } from './components/profile/information-moda
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ClickOutsideModule
   ],
   providers: [AuthenticationServiceService,
     {

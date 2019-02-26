@@ -37,7 +37,7 @@ export class ConfigurationsComponent implements OnInit {
 
   constructor(
     private categoryS: CategoryService, 
-    private generalValidation: GeneralValitationService,
+    public generalValidation: GeneralValitationService,
     private setup: SetupService
     ) { }
 

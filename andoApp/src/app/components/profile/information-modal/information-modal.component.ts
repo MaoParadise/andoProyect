@@ -15,10 +15,10 @@ export class InformationModalComponent implements OnInit {
   localReferenceString = '';
 
   constructor(
-    private mediaS: MediaService,
-    private setup: SetupService,
-    private libraryS: LibraryService, 
-    private generalValidation: GeneralValitationService,
+    public mediaS: MediaService,
+    public setup: SetupService,
+    public libraryS: LibraryService, 
+    public generalValidation: GeneralValitationService,
   ) { }
 
  

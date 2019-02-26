@@ -35,7 +35,6 @@ class MediaController {
             const email = req.body.email;
             const media = req.body.media;
             const numberEpisode = req.body.episode;
-            const embedFrame = req.body.embedFrame;
             const quality = req.body.quality;
             database_1.default.query(`INSERT INTO upload VALUES ('${media.IDMEDIA}', '${email}', '${numberEpisode}', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '1')`, (error) => {
                 if (error) {
@@ -46,20 +45,9 @@ class MediaController {
                     });
                 }
                 else {
-                    database_1.default.query(`INSERT INTO embedFrame VALUES (NULL, '${media.IDMEDIA}', '${email}', '${numberEpisode}', '${embedFrame}', NULL, '${quality}', '1')`, (error) => {
-                        if (error) {
-                            res.json({
-                                message: 'The embed Frame can not be becausa an unexpected error, check if the primary key is not duplicated ---',
-                                success: false,
-                                error: error
-                            });
-                        }
-                        else {
-                            res.json({
-                                message: 'the upload and the first Embed frame are Up !',
-                                success: true
-                            });
-                        }
+                    res.json({
+                        message: 'the upload and the first Embed frame are Up !',
+                        success: true
                     });
                 }
             });

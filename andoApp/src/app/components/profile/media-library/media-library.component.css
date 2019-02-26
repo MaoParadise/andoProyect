@@ -40,7 +40,6 @@ span{
 
 .title{
   margin-top: 0;
-  margin-left: 15vh;
   margin-bottom: 0.5rem;
   margin-bottom: 0.5rem;
   font-family: inherit;
@@ -53,10 +52,14 @@ span{
   text-align: center;
 }
 
+.baralign{
+    text-align: right;
+    padding-right: 28px; 
+}
+
 .btn-upload{
-    border-radius: 2px;
-    margin-right: 30px;
-    float: right;
+    border-right: 1px #000 solid;
+    border-left: 1px #000 solid;
 }
 
 .btn-save{

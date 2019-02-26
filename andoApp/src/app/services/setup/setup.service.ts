@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class SetupService {
 
-  API_URI: string = 'http://localhost:3000/api';
+  API_URI: string = 'http://192.168.0.18:3000/api';
 
   constructor(
     private cookieMaker: CookieService
