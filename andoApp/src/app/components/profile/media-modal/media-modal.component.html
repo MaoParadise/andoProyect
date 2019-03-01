@@ -15,9 +15,9 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <button *ngIf="this.mediaS.updateEmbed" class="btn btn-danger btn-plus" (click)="deleteFrame()"> Eliminar </button>
-            <button *ngIf="this.mediaS.updateEmbed" class="btn btn-warning btn-plus" (click)="showModalFrameUpdated()"> Actualizar </button>
-            <button class="btn btn-warning btn-plus" (click)="showModalFrame()"> Agregar </button>
+            <button *ngIf="this.mediaS.updateEmbed" class="btn btn-warning btn-plus" (click)="deleteFrame()"> Eliminar </button>
+            <button *ngIf="this.mediaS.updateEmbed" class="btn btn-primary btn-plus" (click)="showModalFrameUpdated()"> Actualizar </button>
+            <button class="btn btn-primary btn-plus" (click)="showModalFrame()"> Agregar </button>
           </div>
         </div>
         <div *ngIf="this.mediaS.addEmbed" class="frameFrm modal-body row">

@@ -14,6 +14,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { MediaLibraryComponent } from './components/profile/media-library/media-library.component';
 import { ConfigurationsComponent } from './components/profile/configurations/configurations.component';
 import { CookietestComponent } from './components/testing/cookietest/cookietest.component';
+import { MediaTestComponent } from './components/testing/media-test/media-test.component';
+import { EmbedComponent } from './components/media/embed/embed.component';
 
 const routes: Routes = [
   {
@@ -67,6 +69,10 @@ const routes: Routes = [
   {
     path: 'test',
     component: CookietestComponent
+  },
+  {
+    path: 'embed/:url/:img',
+    component: EmbedComponent
   },
   {
     path: 'not-found',

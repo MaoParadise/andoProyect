@@ -4,6 +4,7 @@ import { CategoryService } from 'src/app/services/added/category.service';
 import { IfStmt } from '@angular/compiler';
 import { GeneralValitationService } from 'src/app/services/general-valitation.service';
 import { SetupService } from 'src/app/services/setup/setup.service';
+import { SpinnerLoaderService } from 'src/app/services/gadgets/spinner-loader/spinner-loader.service';
 
 @Component({
   selector: 'app-configurations',
@@ -38,7 +39,8 @@ export class ConfigurationsComponent implements OnInit {
   constructor(
     private categoryS: CategoryService, 
     public generalValidation: GeneralValitationService,
-    private setup: SetupService
+    private setup: SetupService,
+    private _spinnerService: SpinnerLoaderService
     ) { }
 
   ngOnInit() {
@@ -177,7 +179,7 @@ export class ConfigurationsComponent implements OnInit {
   }
 
   saveConfiguration(){
-
+    this._spinnerService.start();
     if(this.maxData <= 30){
       if(this.isReferencesStringEmpty()){
         let TotalData = this.joinDataReferences();
@@ -210,7 +212,7 @@ export class ConfigurationsComponent implements OnInit {
         this.setup.changeOfSession(this.setup.getCondition());
       }
     }
-
+  this._spinnerService.stopTimer(1500);
   }
 
 

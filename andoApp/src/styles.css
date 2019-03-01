@@ -15,6 +15,14 @@ body,
   
 }
 
+.btn-danger{
+  background-color: #e71d16 !important;
+}
+
+.btn-danger:hover{
+  background-color: #ce2620 !important;
+}
+
 .fa-check-circle{
   color: #4BBF73;
   font-size: 25px;
@@ -48,3 +56,6 @@ pagination-controls{
   text-align: center;
   margin-bottom: 1rem !important;
 }
+
+
+

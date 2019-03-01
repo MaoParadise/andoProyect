@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.confirmUser();
+    
   }
 
   confirmUser(){
@@ -62,6 +63,8 @@ export class ProfileComponent implements OnInit {
     this.auth.updateUser(this.user.EMAIL,this.user).subscribe(
       res =>{
         this.setup.getSessionOrLocalProfileImage(this.setup.getCondition(), this.user.URLPROFILEPICTURE);
+       
+
         window.location.href = "/main";
       }, 
       err => console.error(err)

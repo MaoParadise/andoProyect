@@ -4,6 +4,23 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {FormsModule } from '@angular/forms';
 
+// imports of interceptors
+import { TokenInterceptorService } from './services/token/token-interceptor.service';
+import { NotFoundComponent } from './not-found/not-found.component';
+
+
+//External
+import {NgxPaginationModule} from 'ngx-pagination';
+import { MediaModalComponent } from './components/profile/media-modal/media-modal.component';
+import { CookieService } from 'ngx-cookie-service';
+import { ClickOutsideModule } from 'ng4-click-outside';
+
+// Testings components 
+import { CookietestComponent } from './components/testing/cookietest/cookietest.component';
+import { MediaTestComponent } from './components/testing/media-test/media-test.component';
+
+
+//-- normal components
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -19,23 +36,12 @@ import { AuthMessageComponent } from './components/authentication/auth-message/a
 import { AuthenticationServiceService } from './services/authentication/authentication-service.service';
 import { MediaLibraryComponent } from './components/profile/media-library/media-library.component';
 import { ConfigurationsComponent } from './components/profile/configurations/configurations.component';
-
-
-// imports of interceptors
-import { TokenInterceptorService } from './services/token/token-interceptor.service';
-import { NotFoundComponent } from './not-found/not-found.component';
-
-
-//External
-import {NgxPaginationModule} from 'ngx-pagination';
-import { MediaModalComponent } from './components/profile/media-modal/media-modal.component';
-import { CookieService } from 'ngx-cookie-service';
-import { ClickOutsideModule } from 'ng4-click-outside';
-
-// Testings components 
-import { CookietestComponent } from './components/testing/cookietest/cookietest.component';
 import { InformationModalComponent } from './components/profile/information-modal/information-modal.component';
 import { AddModalComponent } from './components/profile/add-modal/add-modal.component';
+import { SpinnerLoaderComponent } from './components/gadgets/spinner-loader/spinner-loader.component';
+import { EmbedComponent } from './components/media/embed/embed.component';
+
+
 
 
 
@@ -57,7 +63,10 @@ import { AddModalComponent } from './components/profile/add-modal/add-modal.comp
     ConfigurationsComponent,
     CookietestComponent,
     InformationModalComponent,
-    AddModalComponent
+    AddModalComponent,
+    SpinnerLoaderComponent,
+    MediaTestComponent,
+    EmbedComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { Media } from 'src/app/models/Media';
 import { SetupService } from 'src/app/services/setup/setup.service';
 import { LibraryService } from 'src/app/services/library/library.service';
 import { LibraryAddedService } from 'src/app/services/library/library-added.service';
+import { SpinnerLoaderService } from 'src/app/services/gadgets/spinner-loader/spinner-loader.service';
 
 
 @Component({
@@ -69,7 +70,8 @@ export class MediaLibraryComponent implements OnInit {
     public mediaS: MediaService,
     public setup: SetupService,
     public libraryS: LibraryService, 
-    public libraryAdded: LibraryAddedService
+    public libraryAdded: LibraryAddedService,
+    private _spinnerService: SpinnerLoaderService
     ) { 
 
   }
@@ -243,14 +245,19 @@ export class MediaLibraryComponent implements OnInit {
 
 
   getLibrary() {
+    this._spinnerService.start()
     this.mediaS.getMediaLibrary(this.setup.getMail(this.setup.getCondition()))
       .subscribe(
         res => {
           this.dataLibrary = res;
           this.length = this.dataLibrary.length;
-
+          this._spinnerService.stop();
         },
-        err => console.error(err)
+        err => {
+          console.error(err);
+          this._spinnerService.stop();
+        } 
+        
       );
   }
 

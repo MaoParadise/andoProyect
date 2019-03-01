@@ -83,6 +83,10 @@ export class GeneralValitationService {
     return sentence.toLowerCase().replace(/ /g, "").split(';');
   }
 
+  replaceSendVideo(sentence: string){
+    return sentence.replace(/-/g,"/").replace(/¿/g,"?").replace('+','=');
+  }
+
 
   sleep(milliseconds) {
     var start = new Date().getTime();

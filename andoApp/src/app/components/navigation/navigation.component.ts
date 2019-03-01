@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationServiceService} from '../../services/authentication/authentication-service.service'
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { SetupService } from 'src/app/services/setup/setup.service';
 
 @Component({
@@ -13,12 +13,15 @@ export class NavigationComponent implements OnInit {
  
   CurrentUser = this.setup.getUser(this.setup.getCondition());
   CurrentProfileImage = this.setup.getProfileImage(this.setup.getCondition());
+  
 
   constructor(
     private auth: AuthenticationServiceService, 
     private router: Router,
     private setup: SetupService
-    ) { }
+    ) { 
+      
+    }
 
   Auto: boolean = this.auth.isLoggedIn;
 
