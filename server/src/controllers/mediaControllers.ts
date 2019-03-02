@@ -113,14 +113,28 @@ class MediaController{
         const media = await pool.query(`SELECT * FROM (upload INNER JOIN embedframe 
             ON upload.IDMEDIA = embedframe.IDMEDIA AND upload.EMAIL = embedframe.EMAIL
             AND upload.NUMBEREPISODE = embedframe.NUMBEREPISODE)
-            WHERE embedframe.IDMEDIA = '${id}' AND embedframe.EMAIL = '${email}' AND embedframe.NUMBEREPISODE = '${numberEpisode}'`);
+            WHERE embedframe.IDMEDIA = '${id}' AND embedframe.EMAIL = '${email}' AND embedframe.NUMBEREPISODE = '${numberEpisode}' `);
         console.log(media.length);
         if (media.length ==  0) {
             return res.status(404).json({ message: "The request media dont have any embed frame to see", boolean: false });
         }
         res.json(media);
-        
     }
+
+    public async getPublicEmbedFrames(req: Request, res: Response): Promise<any> {
+        const id = req.body.id;
+        const numberEpisode = req.body.numberEpisode;
+        const media = await pool.query(`SELECT * FROM (upload INNER JOIN embedframe
+            ON upload.IDMEDIA = embedframe.IDMEDIA AND upload.EMAIL = embedframe.EMAIL 
+            AND upload.NUMBEREPISODE = embedframe.NUMBEREPISODE) 
+            WHERE embedframe.IDMEDIA = '${id}' AND embedframe.NUMBEREPISODE = '${numberEpisode}' ORDER BY upload.DATEUPLOAD ASC`);
+        console.log(media.length);
+        if (media.length ==  0) {
+            return res.status(404).json({ message: "The request media dont have any embed frame to see", boolean: false });
+        }
+        res.json(media);
+    }
+
 
     public async deleteEmbedFrames(req: Request ,res: Response): Promise<void>{
         const { id } = req.params;

@@ -25,6 +25,8 @@ class MediaRoutes{
 
         this.router.post('/embed/', verifyToken, mediaController.getEmbedFrames);
 
+        this.router.post('/publicEmbed/', mediaController.getPublicEmbedFrames);
+
         this.router.delete('/deleteEmbed/:id', verifyToken, mediaController.deleteEmbedFrames);
         
     }

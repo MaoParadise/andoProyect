@@ -122,7 +122,22 @@ class MediaController {
             const media = yield database_1.default.query(`SELECT * FROM (upload INNER JOIN embedframe 
             ON upload.IDMEDIA = embedframe.IDMEDIA AND upload.EMAIL = embedframe.EMAIL
             AND upload.NUMBEREPISODE = embedframe.NUMBEREPISODE)
-            WHERE embedframe.IDMEDIA = '${id}' AND embedframe.EMAIL = '${email}' AND embedframe.NUMBEREPISODE = '${numberEpisode}'`);
+            WHERE embedframe.IDMEDIA = '${id}' AND embedframe.EMAIL = '${email}' AND embedframe.NUMBEREPISODE = '${numberEpisode}' `);
+            console.log(media.length);
+            if (media.length == 0) {
+                return res.status(404).json({ message: "The request media dont have any embed frame to see", boolean: false });
+            }
+            res.json(media);
+        });
+    }
+    getPublicEmbedFrames(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const id = req.body.id;
+            const numberEpisode = req.body.numberEpisode;
+            const media = yield database_1.default.query(`SELECT * FROM (upload INNER JOIN embedframe
+            ON upload.IDMEDIA = embedframe.IDMEDIA AND upload.EMAIL = embedframe.EMAIL 
+            AND upload.NUMBEREPISODE = embedframe.NUMBEREPISODE) 
+            WHERE embedframe.IDMEDIA = '${id}' AND embedframe.NUMBEREPISODE = '${numberEpisode}' ORDER BY upload.DATEUPLOAD ASC`);
             console.log(media.length);
             if (media.length == 0) {
                 return res.status(404).json({ message: "The request media dont have any embed frame to see", boolean: false });

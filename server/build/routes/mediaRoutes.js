@@ -19,6 +19,7 @@ class MediaRoutes {
         this.router.put('/updateEmbed/', auth_1.verifyToken, mediaControllers_1.default.updateFrame);
         this.router.get('/library/:email', mediaControllers_1.default.getMediaLibrary);
         this.router.post('/embed/', auth_1.verifyToken, mediaControllers_1.default.getEmbedFrames);
+        this.router.post('/publicEmbed/', mediaControllers_1.default.getPublicEmbedFrames);
         this.router.delete('/deleteEmbed/:id', auth_1.verifyToken, mediaControllers_1.default.deleteEmbedFrames);
     }
 }
