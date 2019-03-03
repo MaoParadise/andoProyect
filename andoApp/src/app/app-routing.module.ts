@@ -29,7 +29,7 @@ const routes: Routes = [
     component: MainComponent
   },
   {
-    path: 'media',
+    path: 'media/:id/:episode',
     component: MediaComponent
   },
   {

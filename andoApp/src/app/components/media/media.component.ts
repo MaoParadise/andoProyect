@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PublicMediaService } from 'src/app/services/media/public-media.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-media',
@@ -11,6 +13,8 @@ export class MediaComponent implements OnInit {
   dataRawFrame: any;
   dataFrames: any = [];
   dataUploaders: any;
+  safeHtml: SafeHtml
+  frameActive: number = 0;
 
   header: any = {
     id: 0,
@@ -23,12 +27,16 @@ export class MediaComponent implements OnInit {
     frame: ''
   }
 
+  params = this.activatedRoute.snapshot.params;
+
   constructor(
-    private _publicMedia: PublicMediaService
+    private _publicMedia: PublicMediaService,
+    private sanitizer: DomSanitizer,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.getPublicFrames(1,'7');
+    this.getPublicFrames(this.params.id,this.params.episode);
   }
 
   getPublicFrames(idMedia: number, episode: string){
@@ -37,6 +45,7 @@ export class MediaComponent implements OnInit {
       (res)=>{
         this.dataRawFrame = res;
         this.dataUploaders = this._publicMedia.processPublicFrame(this.dataRawFrame);
+        console.log(this.dataRawFrame);
       },
       (err)=>{
         
@@ -45,7 +54,12 @@ export class MediaComponent implements OnInit {
   }
 
   getFrameById(){
-    console.log(this._publicMedia.getFramesByMail( this.dataRawFrame ,this.dataUploaders[1]));
+     this.dataFrames = this._publicMedia.getFramesByMail( this.dataRawFrame ,this.dataUploaders[0]);
+     console.log(this.dataFrames);
+  }
+
+  onSafeHtml(html: string){
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
 
